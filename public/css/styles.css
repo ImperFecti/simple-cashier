@@ -91,6 +91,11 @@
   }
 }
 
+.custom-link {
+  color: black;
+  text-decoration: none;
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
