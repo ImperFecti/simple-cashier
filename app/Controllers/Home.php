@@ -32,6 +32,26 @@ class Home extends BaseController
         return view('pages/index', $data);
     }
 
+    public function profile()
+    {
+        $auth = service('authentication');
+        if (!$auth->check()) {
+            return redirect()->to('/login');
+        }
+
+        $id = $auth->id();
+        $user = $this->UserModel->getUserProfile($id);
+
+        $data = [
+            'title' => 'Profile',
+            'user' => $user
+        ];
+
+        // dd($data);
+
+        return view('pages/profile', $data);
+    }
+
     public function tablecashier()
     {
         $auth = service('authentication');
@@ -43,6 +63,7 @@ class Home extends BaseController
             'title' => 'Table Cashier',
             'cashier' => $cashier
         ];
+        // dd($data);
         return view('pages/tablecashier', $data);
     }
 

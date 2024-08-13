@@ -88,8 +88,20 @@
                                                             <input type="text" class="form-control" id="username<?= $c['id']; ?>" name="username" value="<?= $c['username']; ?>" required>
                                                         </div>
                                                         <div class="mb-3">
+                                                            <label for="namalengkap<?= $c['id']; ?>" class="form-label">Nama</label>
+                                                            <input type="text" class="form-control" id="namalengkap<?= $c['id']; ?>" name="namalengkap" value="<?= $c['namalengkap']; ?>" required>
+                                                        </div>
+                                                        <div class="mb-3">
                                                             <label for="email<?= $c['id']; ?>" class="form-label">Email</label>
                                                             <input type="email" class="form-control" id="email<?= $c['id']; ?>" name="email" value="<?= $c['email']; ?>" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="nomorhp<?= $c['id']; ?>" class="form-label">Nomor HP</label>
+                                                            <input type="nomorhp" class="form-control" id="nomorhp<?= $c['id']; ?>" name="nomorhp" value="<?= $c['nomorhp']; ?>">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="alamat<?= $c['id']; ?>" class="form-label">Alamat</label>
+                                                            <input type="alamat" class="form-control" id="alamat<?= $c['id']; ?>" name="alamat" value="<?= $c['alamat']; ?>">
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="active<?= $c['id']; ?>" class="form-label">Status</label>
