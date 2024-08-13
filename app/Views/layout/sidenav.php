@@ -23,6 +23,12 @@
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-money-bill"></i></div>
                     Laporan Transaksi
                 </a>
+
+                <!-- Link to Data Product page -->
+                <a class="nav-link" href="/tableproduk">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-utensils"></i></div>
+                    Data Produk
+                </a>
                 <!-- Core section end -->
             </div>
         </div>

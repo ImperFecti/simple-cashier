@@ -11,7 +11,7 @@ class ProdukModel extends Model
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'deksripsi', 'harga', 'stok', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_kategori', 'nama', 'deksripsi', 'harga', 'stok', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = false;
@@ -19,4 +19,11 @@ class ProdukModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function getProduk()
+    {
+        return $this->select('produk.*, kategori.nama as kategori')
+            ->join('kategori', 'kategori.id = produk.id_kategori', 'left')
+            ->findAll();
+    }
 }
