@@ -11,10 +11,21 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Dashboard</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Selamat datang kembali, <b><?= $user['username']; ?></b> !!</li>
-                </ol>
+                <div class="d-flex justify-content-between mt-4">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Selamat datang kembali, <b><?= $user['username']; ?></b> !!</li>
+                        </ol>
+                    </div>
+                    <?php if (in_groups("cashier")) : ?>
+                        <div>
+                            <a href="#" type="button" class="btn btn-success">
+                                <i class="fa-solid fa-cart-plus fa-bounce"></i> Bayar Tagihan
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
                 <div class="row">
                     <div class="col-md-3 mb-4">
                         <div class="card dashboard h-100">

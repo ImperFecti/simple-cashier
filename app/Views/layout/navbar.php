@@ -16,7 +16,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                <li><a class="dropdown-item" href="#!">Ubah Password</a></li>
+                <li><a class="dropdown-item" href="/ubahpassword">Ubah Password</a></li>
                 <li>
                     <hr class="dropdown-divider" />
                 </li>

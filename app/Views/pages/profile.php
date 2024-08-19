@@ -34,8 +34,8 @@
                         <div class="col-md-4 gradient-custom text-center text-white d-flex flex-column justify-content-center align-items-center" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                             <h3 class="mt-5"><?= $user['namalengkap'] ?></h3>
                             <p><?= $user['username'] ?></p>
-                            <!-- Edit profile link with an icon -->
-                            <a href="/editprofile" class="custom-link mt-2" style="color: white;">
+                            <!-- Edit profile link with an icon that triggers modal -->
+                            <a href="#" class="custom-link mt-2" style="color: white;" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                                 <i class="fa-solid fa-user-pen"></i>
                                 Edit Profile
                             </a>
@@ -71,6 +71,49 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- <!-- Edit Profile Modal -->
+                <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form action="/updateprofile/<?= $user['id'] ?>" method="post">
+                                <?= csrf_field() ?>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<?= $user['email'] ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="namalengkap" class="form-label">Nama Lengkap</label>
+                                        <input type="text" class="form-control" id="namalengkap" name="namalengkap" value="<?= $user['namalengkap'] ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="username" name="username" value="<?= $user['username'] ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="alamat" class="form-label">Alamat Rumah</label>
+                                        <input type="text" class="form-control" id="alamat" name="alamat" value="<?= $user['alamat'] ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nomorhp" class="form-label">Nomor Handphone</label>
+                                        <input type="numeric" class="form-control" id="nomorhp" name="nomorhp" value="<?= $user['nomorhp'] ?>" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-success">Simpan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Edit Profile Modal -->
+
             </div>
         </div>
 
