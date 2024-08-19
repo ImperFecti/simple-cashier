@@ -11,12 +11,13 @@
 
                 <div class="sb-sidenav-menu-heading">User Management</div>
 
-
                 <!-- Link to Data Kasir page -->
-                <a class="nav-link" href="/tablecashier">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-person"></i></div>
-                    Akun Kasir
-                </a>
+                <?php if (in_groups("admin")) : ?>
+                    <a class="nav-link" href="/tablecashier">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-person"></i></div>
+                        Akun Kasir
+                    </a>
+                <?php endif; ?>
 
                 <!-- Link to Data Transaksi page -->
                 <a class="nav-link" href="#">

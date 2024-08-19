@@ -22,7 +22,7 @@ class ProdukModel extends Model
 
     public function getProduk()
     {
-        return $this->select('produk.*, kategori.nama as kategori')
+        return $this->select('produk.*, kategori.nama as kategori_name')
             ->join('kategori', 'kategori.id = produk.id_kategori', 'left')
             ->findAll();
     }

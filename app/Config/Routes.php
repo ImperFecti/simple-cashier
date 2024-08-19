@@ -6,14 +6,18 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-$routes->get('/profile', 'Home::profile');
 
-$routes->get('/tablecashier', 'Home::tablecashier');
-$routes->post('/tambahcashier', 'Home::tambahcashier', ['filter' => 'role:admin']);
-$routes->post('/editcashier/(:num)', 'Home::editcashier/$1', ['filter' => 'role:admin']);
-$routes->post('/deletecashier', 'Home::deletecashier', ['filter' => 'role:admin']);
+// profile user management
+$routes->get('/profile', 'User::profile');
 
-$routes->get('/tableproduk', 'Home::tableproduk');
-$routes->post('/tambahproduk', 'Home::tambahproduk', ['filter' => 'role:admin']);
-$routes->post('/editproduk/(:num)', 'Home::editproduk/$1', ['filter' => 'role:admin']);
-$routes->post('/deleteproduk', 'Home::deleteproduk', ['filter' => 'role:admin']);
+// cashier management
+$routes->get('/tablecashier', 'Cashier::tablecashier', ['filter' => 'role:admin']);
+$routes->post('/tambahcashier', 'Cashier::tambahcashier', ['filter' => 'role:admin']);
+$routes->post('/editcashier/(:num)', 'Cashier::editcashier/$1', ['filter' => 'role:admin']);
+$routes->post('/deletecashier', 'Cashier::deletecashier', ['filter' => 'role:admin']);
+
+// product management
+$routes->get('/tableproduk', 'Product::tableproduk');
+$routes->post('/tambahproduk', 'Product::tambahproduk', ['filter' => 'role:admin']);
+$routes->post('/editproduk/(:num)', 'Product::editproduk/$1', ['filter' => 'role:admin']);
+$routes->post('/deleteproduk', 'Product::deleteproduk', ['filter' => 'role:admin']);

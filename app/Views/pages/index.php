@@ -27,17 +27,19 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-4">
-                        <div class="card dashboard h-100">
-                            <a href="/tablecashier" class="custom-link">
-                                <div class="card-body text-center">
-                                    <i class="fa-solid fa-person-half-dress fa-2x"></i>
-                                    <h5 class="card-title">Akun Kasir</h5>
-                                    <p class="card-text">Mengatur Akun Kasir Yang Terdaftar</p>
-                                </div>
-                            </a>
+                    <?php if (in_groups("admin")): ?>
+                        <div class="col-md-3 mb-4">
+                            <div class="card dashboard h-100">
+                                <a href="/tablecashier" class="custom-link">
+                                    <div class="card-body text-center">
+                                        <i class="fa-solid fa-person-half-dress fa-2x"></i>
+                                        <h5 class="card-title">Akun Kasir</h5>
+                                        <p class="card-text">Mengatur Akun Kasir Yang Terdaftar</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                     <div class="col-md-3 mb-4">
                         <div class="card dashboard h-100">
                             <a href="/tableproduk" class="custom-link">
