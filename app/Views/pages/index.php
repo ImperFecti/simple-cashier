@@ -20,9 +20,49 @@
                     </div>
                     <?php if (in_groups("cashier")) : ?>
                         <div>
-                            <a href="#" type="button" class="btn btn-success">
+                            <a href="#" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahTagihanModal">
                                 <i class="fa-solid fa-cart-plus fa-bounce"></i> Bayar Tagihan
                             </a>
+                        </div>
+                        <!-- Tambah Tagihan Modal -->
+                        <div class="modal fade" id="tambahTagihanModal" tabindex="-1" aria-labelledby="tambahTagihanModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="tambahTagihanModalLabel">Tambah Tagihan</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="tambahTagihanForm" action="/home/simpanTagihan" method="post">
+                                            <?= csrf_field(); ?>
+                                            <div class="mb-3">
+                                                <label for="produk" class="form-label">Pilih Produk</label>
+                                                <select class="form-select" id="produk" name="produk">
+                                                    <option value="" selected disabled>Pilih Produk</option> <!-- Opsi awal kosong -->
+                                                    <?php foreach ($produk as $p) : ?>
+                                                        <option value="<?= $p['id']; ?>" data-harga="<?= $p['harga']; ?>">
+                                                            <?= $p['nama']; ?> - Rp<?= number_format($p['harga'], 0, ',', '.'); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="jumlah" class="form-label">Jumlah</label>
+                                                <input type="number" class="form-control" id="jumlah" name="jumlah" value="1" min="1">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="total" class="form-label">Total Harga</label>
+                                                <input type="text" class="form-control" id="total" name="total" readonly>
+                                            </div>
+                                            <input type="hidden" id="pembayaran" name="pembayaran" value="Belum Dibayar">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary" form="tambahTagihanForm">Simpan</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     <?php endif; ?>
                 </div>

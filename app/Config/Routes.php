@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->post('/simpanTagihan', 'Home::simpanTagihan');
 
 // profile user management
 $routes->get('/profile', 'User::profile');
@@ -13,6 +14,8 @@ $routes->get('/profile', 'User::editprofile');
 $routes->post('/updateprofile/(:num)', 'User::updateprofile/$1');
 $routes->get('/ubahpassword', 'User::ubahpassword');
 $routes->post('/updatepassword/(:num)', 'User::updatepassword/$1');
+
+$routes->get('/buktitagihan', 'Tagihan::buktitagihan');
 
 // cashier management
 $routes->get('/tablecashier', 'Cashier::tablecashier', ['filter' => 'role:admin']);
