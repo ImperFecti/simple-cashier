@@ -15,6 +15,9 @@ $routes->post('/updateprofile/(:num)', 'User::updateprofile/$1');
 $routes->get('/ubahpassword', 'User::ubahpassword');
 $routes->post('/updatepassword/(:num)', 'User::updatepassword/$1');
 
+// tagihan management
+$routes->get('/tabletagihan', 'Tagihan::tabletagihan');
+$routes->post('/deletetagihan', 'Tagihan::deletetagihan', ['filter' => 'role:admin']);
 $routes->get('/buktitagihan', 'Tagihan::buktitagihan');
 
 // cashier management

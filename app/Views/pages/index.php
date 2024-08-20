@@ -26,7 +26,7 @@
                         </div>
                         <!-- Tambah Tagihan Modal -->
                         <div class="modal fade" id="tambahTagihanModal" tabindex="-1" aria-labelledby="tambahTagihanModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="tambahTagihanModalLabel">Tambah Tagihan</h5>
@@ -54,7 +54,14 @@
                                                 <label for="total" class="form-label">Total Harga</label>
                                                 <input type="text" class="form-control" id="total" name="total" readonly>
                                             </div>
-                                            <input type="hidden" id="pembayaran" name="pembayaran" value="Belum Dibayar">
+                                            <div class="mb-3">
+                                                <label for="pembayaran" class="form-label">Metode Pembayaran</label>
+                                                <select class="form-select" id="pembayaran" name="pembayaran" required>
+                                                    <option value="" selected disabled>Pilih Metode Pembayaran</option> <!-- Opsi awal kosong -->
+                                                    <option value="tunai">Tunai</option>
+                                                    <option value="qris">Qris</option>
+                                                </select>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -69,7 +76,7 @@
                 <div class="row">
                     <div class="col-md-3 mb-4">
                         <div class="card dashboard h-100">
-                            <a href="/tablelaporan" class="custom-link">
+                            <a href="/tabletagihan" class="custom-link">
                                 <div class="card-body text-center">
                                     <i class="fa-solid fa-money-bills fa-2x"></i>
                                     <h5 class="card-title">Laporan Tagihan Transaksi</h5>

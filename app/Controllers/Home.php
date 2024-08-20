@@ -43,7 +43,7 @@ class Home extends BaseController
     {
         $data = [
             'id_cashier' => user()->id, // Ambil id kasir dari user yang login
-            'total' => $this->request->getVar('total'),
+            'jumlah' => $this->request->getVar('jumlah'),
             'pembayaran' => $this->request->getVar('pembayaran'),
         ];
 

@@ -10,7 +10,7 @@ class TransaksiModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['id_cashier', 'total', 'pembayaran', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_cashier', 'jumlah', 'pembayaran', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
@@ -18,4 +18,11 @@ class TransaksiModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function getTransaksiWithCashier()
+    {
+        return $this->select('transaksi.*, users.username as username')
+            ->join('users', 'users.id = transaksi.id_cashier')
+            ->findAll();
+    }
 }
