@@ -10,7 +10,7 @@ class TransaksiModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['id_cashier', 'jumlah', 'pembayaran', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_cashier', 'pembayaran', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;

@@ -17,6 +17,16 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Selamat datang kembali, <b><?= $user['username']; ?></b> !!</li>
                         </ol>
+                        <?php if (session()->getFlashdata('message')) : ?>
+                            <div class="alert alert-success">
+                                <?= session()->getFlashdata('message') ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (session()->getFlashdata('error')) : ?>
+                            <div class="alert alert-danger">
+                                <?= session()->getFlashdata('error') ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <?php if (in_groups("cashier")) : ?>
                         <div>
@@ -26,35 +36,41 @@
                         </div>
                         <!-- Tambah Tagihan Modal -->
                         <div class="modal fade" id="tambahTagihanModal" tabindex="-1" aria-labelledby="tambahTagihanModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="tambahTagihanModalLabel">Tambah Tagihan</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="tambahTagihanForm" action="/home/simpanTagihan" method="post">
+                                        <form id="tambahTagihanForm" action="/simpanTagihan" method="post">
                                             <?= csrf_field(); ?>
-                                            <div class="mb-3">
-                                                <label for="produk" class="form-label">Pilih Produk</label>
-                                                <select class="form-select" id="produk" name="produk">
-                                                    <option value="" selected disabled>Pilih Produk</option> <!-- Opsi awal kosong -->
-                                                    <?php foreach ($produk as $p) : ?>
-                                                        <option value="<?= $p['id']; ?>" data-harga="<?= $p['harga']; ?>">
-                                                            <?= $p['nama']; ?> - Rp<?= number_format($p['harga'], 0, ',', '.'); ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                            <div id="produkContainer">
+                                                <div class="produk-item mb-3">
+                                                    <div class="mb-3">
+                                                        <label for="produk" class="form-label">Pilih Produk</label>
+                                                        <select class="form-select produk" name="produk[]" required>
+                                                            <option value="" selected disabled>Pilih Produk</option>
+                                                            <?php foreach ($produk as $p) : ?>
+                                                                <option value="<?= $p['id']; ?>" data-harga="<?= $p['harga']; ?>">
+                                                                    <?= $p['nama']; ?> - Rp<?= number_format($p['harga'], 0, ',', '.'); ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="jumlah" class="form-label">Jumlah</label>
+                                                        <input type="number" class="form-control jumlah" name="jumlah[]" value="1" min="1" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="total" class="form-label">Total Harga</label>
+                                                        <input type="text" class="form-control total" name="total[]" readonly>
+                                                    </div>
+                                                    <button type="button" class="btn btn-danger btn-sm remove-produk">Hapus Produk</button>
+                                                </div>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="jumlah" class="form-label">Jumlah</label>
-                                                <input type="number" class="form-control" id="jumlah" name="jumlah" value="1" min="1">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="total" class="form-label">Total Harga</label>
-                                                <input type="text" class="form-control" id="total" name="total" readonly>
-                                            </div>
-                                            <div class="mb-3">
+                                            <button type="button" class="btn btn-primary btn-sm" id="addProductBtn">Tambah Produk</button>
+                                            <div class="mb-3 mt-3">
                                                 <label for="pembayaran" class="form-label">Metode Pembayaran</label>
                                                 <select class="form-select" id="pembayaran" name="pembayaran" required>
                                                     <option value="" selected disabled>Pilih Metode Pembayaran</option> <!-- Opsi awal kosong -->
