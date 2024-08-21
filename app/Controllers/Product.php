@@ -35,6 +35,7 @@ class Product extends BaseController
             'id_kategori' => $this->request->getPost('id_kategori'),
             'deskripsi' => $this->request->getPost('deskripsi'),
             'harga' => $this->request->getPost('harga'),
+            'stok' => $this->request->getPost('stok'),
         ];
 
         $this->ProdukModel->insert($data);
@@ -50,6 +51,7 @@ class Product extends BaseController
             'id_kategori' => $this->request->getPost('id_kategori'),
             'deskripsi' => $this->request->getPost('deskripsi'),
             'harga' => $this->request->getPost('harga'),
+            'stok' => $this->request->getPost('stok'),
         ];
 
         $this->ProdukModel->update($id, $data);

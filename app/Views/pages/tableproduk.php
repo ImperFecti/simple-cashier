@@ -108,6 +108,10 @@
                                                                 <input type="numeric" class="form-control" id="harga<?= $p['id']; ?>" name="harga" value="<?= $p['harga']; ?>" required>
                                                             </div>
                                                             <div class="mb-3">
+                                                                <label for="stok<?= $p['id']; ?>" class="form-label">Stok Produk</label>
+                                                                <input type="numeric" class="form-control" id="stok<?= $p['id']; ?>" name="stok" value="<?= $p['stok']; ?>" required>
+                                                            </div>
+                                                            <div class="mb-3">
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -165,6 +169,10 @@
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga Produk</label>
                             <input type="numeric" class="form-control" id="harga" name="harga">
+                        </div>
+                        <div class="mb-3">
+                            <label for="stok" class="form-label">Stok Produk</label>
+                            <input type="numeric" class="form-control" id="stok" name="stok">
                         </div>
                     </div>
                     <div class="modal-footer">
