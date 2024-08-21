@@ -20,7 +20,7 @@
                 <?php endif; ?>
 
                 <!-- Link to Data Transaksi page -->
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/tabletagihan">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-money-bill"></i></div>
                     Laporan Transaksi
                 </a>

@@ -47,6 +47,7 @@
                                     <th>Nama</th>
                                     <th>Deskripsi</th>
                                     <th>Harga</th>
+                                    <th>Stok</th>
                                     <?php if (in_groups("admin")): ?>
                                         <th>Action</th>
                                     <?php endif; ?>
@@ -61,6 +62,7 @@
                                         <td><?= esc($p['nama']); ?></td>
                                         <td><?= esc($p['deskripsi']); ?></td>
                                         <td><?= esc($p['harga']); ?></td>
+                                        <td><?= esc($p['stok']); ?></td>
                                         <?php if (in_groups("admin")): ?>
                                             <td>
                                                 <form action="<?= base_url('/deleteproduk'); ?>" method="post" style="display:inline;">
@@ -79,7 +81,7 @@
                                         <div class="modal fade" id="editProductModal<?= $p['id']; ?>" tabindex="-1" aria-labelledby="editProductModalLabel<?= $p['id']; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="<?= site_url('/editcashier/' . $p['id']); ?>" method="post">
+                                                    <form action="<?= site_url('/editproduk/' . $p['id']); ?>" method="post">
                                                         <?= csrf_field() ?>
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="editProductModalLabel<?= $p['id']; ?>">Ubah Data Produk</h5>
@@ -99,7 +101,7 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="deskripsi<?= $p['id']; ?>" class="form-label">Deskripsi Produk</label>
-                                                                <input type="deskripsi" class="form-control" id="deskripsi<?= $p['id']; ?>" name="deskripsi" value="<?= $p['deskripsi']; ?>">
+                                                                <input type="text" class="form-control" id="deskripsi<?= $p['id']; ?>" name="deskripsi" value="<?= $p['deskripsi']; ?>">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="harga<?= $p['id']; ?>" class="form-label">Harga Produk</label>
@@ -110,6 +112,8 @@
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                                     <button type="submit" class="btn btn-primary">Save changes</button>
                                                                 </div>
+                                                            </div>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>

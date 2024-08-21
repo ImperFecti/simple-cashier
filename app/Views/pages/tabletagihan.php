@@ -60,6 +60,15 @@
                                                 <i class="fa-solid fa-person-circle-question fa-fade"></i> Detail
                                             </a>
                                         </td>
+                                        <?php if (in_groups("admin")): ?>
+                                            <td>
+                                                <form action="<?= base_url('/deletetagihan'); ?>" method="post" style="display:inline;">
+                                                    <?= csrf_field(); ?>
+                                                    <input type="hidden" name="id" value="<?= $t['id']; ?>">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus tagihan ini ?');"><i class="fa-solid fa-person-circle-minus"></i> Delete</button>
+                                                </form>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>

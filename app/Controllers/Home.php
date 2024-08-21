@@ -46,10 +46,26 @@ class Home extends BaseController
     {
         $produkId = $this->request->getVar('produk');
         $jumlah = $this->request->getVar('jumlah');
-        $total = $this->request->getVar('total');
         $pembayaran = $this->request->getVar('pembayaran');
 
-        // Simpan transaksi utama
+        $insufficientStock = [];
+
+        // Cek stok untuk setiap produk
+        foreach ($produkId as $index => $id) {
+            $produk = $this->ProdukModel->find($id);
+
+            if ($produk['stok'] < $jumlah[$index]) {
+                $insufficientStock[] = $produk['nama']; // Tambahkan nama produk yang stoknya tidak mencukupi
+            }
+        }
+
+        // Jika ada produk yang stoknya tidak mencukupi, redirect dengan flash data dan hentikan eksekusi
+        if (!empty($insufficientStock)) {
+            $errorMessage = 'Stok produk berikut tidak mencukupi: ' . implode(', ', $insufficientStock) . '.';
+            return redirect()->to('/')->with('error', $errorMessage);
+        }
+
+        // Jika semua stok cukup, lanjutkan menyimpan transaksi utama
         $transaksiData = [
             'id_cashier' => user()->id, // Ambil id kasir dari user yang login
             'pembayaran' => $pembayaran,
@@ -58,17 +74,22 @@ class Home extends BaseController
 
         $transaksiId = $this->TransaksiModel->insertID();
 
-        // Simpan detail transaksi
+        // Simpan detail transaksi dan kurangi stok produk
         for ($i = 0; $i < count($produkId); $i++) {
             $detailData = [
                 'id_transaksi' => $transaksiId,
                 'id_produk' => $produkId[$i],
                 'jumlah' => $jumlah[$i],
-                'harga' => $total[$i],
+                'harga' => $this->request->getVar('total')[$i],
             ];
             $this->TransaksiDetailModel->insert($detailData);
+
+            // Kurangi stok produk
+            $this->ProdukModel->update($produkId[$i], [
+                'stok' => $produk['stok'] - $jumlah[$i]
+            ]);
         }
 
-        return redirect()->to('/')->with('success', 'Tagihan berhasil disimpan.');
+        return redirect()->to('/')->with('success', 'Tagihan berhasil disimpan dan stok produk telah diperbarui.');
     }
 }
