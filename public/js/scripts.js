@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const harga = parseInt(produkSelect.selectedOptions[0].dataset.harga);
     const jumlah = parseInt(jumlahInput.value);
-    totalInput.value =
-      "Rp" + new Intl.NumberFormat("id-ID").format(harga * jumlah);
+    totalInput.value = harga * jumlah; // Menghapus format rupiah
   }
 
   function addProduct() {

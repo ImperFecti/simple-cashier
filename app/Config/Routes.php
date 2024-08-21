@@ -19,7 +19,7 @@ $routes->post('/updatepassword/(:num)', 'User::updatepassword/$1');
 $routes->get('/tabletagihan', 'Tagihan::tabletagihan');
 $routes->post('/simpanTagihan', 'Tagihan::simpanTagihan', ['filter' => 'role:admin']);
 $routes->post('/deletetagihan', 'Tagihan::deletetagihan', ['filter' => 'role:admin']);
-$routes->get('/buktitagihan', 'Tagihan::buktitagihan');
+$routes->get('/buktitagihan/(:num)', 'Tagihan::buktitagihan/$1');
 
 // cashier management
 $routes->get('/tablecashier', 'Cashier::tablecashier', ['filter' => 'role:admin']);

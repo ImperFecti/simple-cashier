@@ -11,22 +11,24 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
+                <div class="mt-3">
+                    <?php if (session()->getFlashdata('message')) : ?>
+                        <div class="alert alert-success">
+                            <?= session()->getFlashdata('message') ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if (session()->getFlashdata('error')) : ?>
+                        <div class="alert alert-danger">
+                            <?= session()->getFlashdata('error') ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
                 <div class="d-flex justify-content-between mt-4">
                     <div>
                         <h1>Dashboard</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Selamat datang kembali, <b><?= $user['username']; ?></b> !!</li>
                         </ol>
-                        <?php if (session()->getFlashdata('message')) : ?>
-                            <div class="alert alert-success">
-                                <?= session()->getFlashdata('message') ?>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (session()->getFlashdata('error')) : ?>
-                            <div class="alert alert-danger">
-                                <?= session()->getFlashdata('error') ?>
-                            </div>
-                        <?php endif; ?>
                     </div>
                     <?php if (in_groups("cashier")) : ?>
                         <div>
@@ -53,7 +55,7 @@
                                                             <option value="" selected disabled>Pilih Produk</option>
                                                             <?php foreach ($produk as $p) : ?>
                                                                 <option value="<?= $p['id']; ?>" data-harga="<?= $p['harga']; ?>">
-                                                                    <?= $p['nama']; ?> - Rp<?= number_format($p['harga'], 0, ',', '.'); ?>
+                                                                    <?= $p['nama']; ?> - Rp<?= $p['harga']; ?>
                                                                 </option>
                                                             <?php endforeach; ?>
                                                         </select>

@@ -18,5 +18,13 @@ class TransaksiDetailModel extends Model
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+
+    public function getDetailTransaksiWithProduk($id_transaksi)
+    {
+        return $this->select('transaksi_detail.*, produk.nama as nama_produk, kategori.nama as nama_kategori')
+            ->join('produk', 'produk.id = transaksi_detail.id_produk')
+            ->join('kategori', 'kategori.id = produk.id_kategori')
+            ->where('transaksi_detail.id_transaksi', $id_transaksi)
+            ->findAll();
+    }
 }

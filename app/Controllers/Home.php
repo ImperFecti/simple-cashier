@@ -46,6 +46,7 @@ class Home extends BaseController
     {
         $produkId = $this->request->getVar('produk');
         $jumlah = $this->request->getVar('jumlah');
+        $total = $this->request->getVar('total');
         $pembayaran = $this->request->getVar('pembayaran');
 
         // Simpan transaksi utama
@@ -63,6 +64,7 @@ class Home extends BaseController
                 'id_transaksi' => $transaksiId,
                 'id_produk' => $produkId[$i],
                 'jumlah' => $jumlah[$i],
+                'harga' => $total[$i],
             ];
             $this->TransaksiDetailModel->insert($detailData);
         }

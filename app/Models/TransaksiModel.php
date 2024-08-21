@@ -12,17 +12,20 @@ class TransaksiModel extends Model
     protected $useSoftDeletes   = false;
     protected $allowedFields    = ['id_cashier', 'pembayaran', 'created_at', 'updated_at'];
 
-    // Dates
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
 
-    public function getTransaksiWithCashier()
+    public function getTransaksiWithCashier($id_transaksi = null)
     {
-        return $this->select('transaksi.*, users.username as username')
-            ->join('users', 'users.id = transaksi.id_cashier')
-            ->findAll();
+        $query = $this->select('transaksi.*, users.username as cashier_name')
+            ->join('users', 'users.id = transaksi.id_cashier');
+
+        if ($id_transaksi) {
+            return $query->where('transaksi.id', $id_transaksi)->first();
+        }
+
+        return $query->findAll();
     }
 }

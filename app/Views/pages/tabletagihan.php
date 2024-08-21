@@ -36,12 +36,11 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
-                                    <th>Cashier</th>
+                                    <th>ID Cashier</th>
                                     <th>Nama Cashier</th>
-                                    <th>Jumlah</th>
-                                    <th>Total</th>
                                     <th>Pembayaran</th>
                                     <th>Tanggal</th>
+                                    <th>Detail Tagihan</th>
                                     <?php if (in_groups("admin")): ?>
                                         <th>Action</th>
                                     <?php endif; ?>
@@ -53,23 +52,14 @@
                                     <tr>
                                         <th scope="row"><?= $i ?></th>
                                         <td><?= esc($t['id_cashier']); ?></td>
-                                        <td><?= esc($t['username']); ?></td>
-                                        <td><?= esc($t['jumlah']); ?></td>
-                                        <td></td>
+                                        <td><?= esc($t['cashier_name']); ?></td>
                                         <td><?= esc($t['pembayaran']); ?></td>
                                         <td><?= esc($t['created_at']); ?></td>
-                                        <?php if (in_groups("admin")): ?>
-                                            <td>
-                                                <form action="<?= base_url('/deleteproduk'); ?>" method="post" style="display:inline;">
-                                                    <?= csrf_field(); ?>
-                                                    <input type="hidden" name="id" value="<?= $t['id']; ?>">
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus produk ini ?');"><i class="fa-solid fa-person-circle-minus"></i> Delete</button>
-                                                </form>
-                                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editProductModal<?= $t['id'] ?>">
-                                                    <i class="fa-solid fa-person-circle-question"></i> Ubah
-                                                </button>
-                                            </td>
-                                        <?php endif; ?>
+                                        <td>
+                                            <a href="/buktitagihan/<?= esc($t['id']); ?>" class="btn btn-info btn-sm">
+                                                <i class="fa-solid fa-person-circle-question fa-fade"></i> Detail
+                                            </a>
+                                        </td>
                                     </tr>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
