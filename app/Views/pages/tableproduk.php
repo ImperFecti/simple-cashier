@@ -129,6 +129,9 @@
                         </table>
                     </div>
                 </div>
+                <div class="mb-3">
+                    <a href="/" type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+                </div>
             </div>
         </main>
 

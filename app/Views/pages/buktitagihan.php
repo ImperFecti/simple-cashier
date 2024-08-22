@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-xl-8">
                     <ul class="list-unstyled">
-                        <li class="text-muted">To: <span style="color:#5d9fc5 ;"><?= esc($transaksi['cashier_name']); ?></span></li>
+                        <li class="text-muted">Cashier: <span style="color:#5d9fc5 ;"><?= esc($transaksi['cashier_name']); ?></span></li>
                     </ul>
                 </div>
                 <div class="col-xl-4">
@@ -93,6 +93,9 @@
             <div class="row">
                 <div class="col-xl-10">
                     <p>Terima Kasih Telah Melakukan Pembayaran</p>
+                </div>
+                <div class="col-xl-2">
+                    <a href="/tabletagihan" type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
                 </div>
             </div>
         </div>

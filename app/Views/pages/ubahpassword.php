@@ -53,7 +53,8 @@
                     </div>
                     <!-- Submit button -->
                     <div class="mt-5 mb-5 text-center">
-                        <button class="btn btn-primary profile-button" type="submit">Update Password</button>
+                        <a href="/profile" class="btn btn-secondary profile-button"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+                        <button class="btn btn-primary profile-button" type="submit">Perbarui Password</button>
                     </div>
                 </form>
             </div>

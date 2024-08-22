@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2024 at 02:46 PM
+-- Generation Time: Aug 22, 2024 at 02:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -135,7 +135,17 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (27, '::1', 'cashier@gmail.com', 3, '2024-08-21 10:34:07', 1),
 (28, '::1', 'admin', NULL, '2024-08-21 10:35:47', 0),
 (29, '::1', 'admin@gmail.com', 1, '2024-08-21 10:35:52', 1),
-(30, '::1', 'cashier3@gmail.com', 5, '2024-08-21 11:49:10', 1);
+(30, '::1', 'cashier3@gmail.com', 5, '2024-08-21 11:49:10', 1),
+(31, '::1', 'admin', 1, '2024-08-21 14:58:03', 0),
+(32, '::1', 'admin2@gmail.com', 2, '2024-08-21 14:58:15', 1),
+(33, '::1', 'admin@gmail.com', 1, '2024-08-21 14:59:55', 1),
+(34, '::1', 'admin@gmail.com', 1, '2024-08-22 11:52:15', 1),
+(35, '::1', 'cashier2@gmail.com', 4, '2024-08-22 12:15:58', 1),
+(36, '::1', 'admin@gmail.com', 1, '2024-08-22 12:20:15', 1),
+(37, '::1', 'admin2@gmail.com', 2, '2024-08-22 12:28:25', 1),
+(38, '::1', 'cashier2@gmail.com', 4, '2024-08-22 12:28:52', 1),
+(39, '::1', 'cashier3@gmail.com', 5, '2024-08-22 12:29:28', 1),
+(40, '::1', 'admin@gmail.com', 1, '2024-08-22 12:29:58', 1);
 
 -- --------------------------------------------------------
 
@@ -253,7 +263,7 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `id_kategori`, `nama`, `deskripsi`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
-(1, 1, 'bakso', '', 12000, 0, '2024-08-13 09:04:44', '2024-08-21 19:08:05'),
+(1, 1, 'bakso', '', 12000, 3, '2024-08-13 09:04:44', '2024-08-21 22:03:40'),
 (3, 2, 'es teh', '', 5000, 0, '0000-00-00 00:00:00', '2024-08-21 19:08:05'),
 (4, 1, 'mie goreng', '', 7000, 19, '0000-00-00 00:00:00', '2024-08-21 19:26:25'),
 (5, 2, 'air putih', '', 2000, 19, '0000-00-00 00:00:00', '2024-08-21 19:26:25'),
@@ -370,10 +380,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `namalengkap`, `alamat`, `nomorhp`, `password_hash`, `reset_hash`, `reset_at`, `reset_expires`, `activate_hash`, `status`, `status_message`, `active`, `force_pass_reset`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '', 'admin', 'admin pertama banget', 'jl. jalan jalan', 1111111111, '$2y$10$SHbJESJzTFshZeKkU6MU8OPJ5k3q.JcSTxQaEaAK7gKKO5yXmunG2', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, '2024-08-19 13:35:19', '2024-08-21 10:42:39', NULL),
-(2, 'admin2@gmail.com', 'admin2', NULL, NULL, NULL, '$2y$10$sw0TsVIznEQ4dZAY4tr.MeGaiunSozz0.VBGRKHXNyxuhaPJ5c9.y', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:37:41', '2024-08-19 13:37:41', NULL),
-(4, 'cashier2@gmail.com', 'cashier2', NULL, NULL, NULL, '$2y$10$0EWCE6EblhGORzWuhxrLVeSU0IYIICicR0DJtTCBpRewLicyqvoba', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:39:56', '2024-08-19 13:39:56', NULL),
-(5, 'cashier3@gmail.com', 'cashier3', NULL, NULL, NULL, '$2y$10$7HRWHgbUtm5EFyt7.CJC9OEuCJ.AAwYYA6VUGOr83l/8YwDkxPol6', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:40:12', '2024-08-19 13:40:12', NULL);
+(1, 'admin@gmail.com', 'admin', 'admin pertama banget', 'jl. jalan jalan', 1111111111, '$2y$10$Hqh9y4u5Lp22wfB7fTLigesKjo5MqwCWAQcbuBS2kyxobPuL7RPyO', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:35:19', '2024-08-22 12:28:16', NULL),
+(2, 'admin2@gmail.com', 'admin2', NULL, NULL, NULL, '$2y$10$FXX5.fTnAQcV5lYuu7oSBu.5qbJI0asldZlUb.ZSvgdYVgeJanfIy', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:37:41', '2024-08-22 12:28:44', NULL),
+(4, 'cashier2@gmail.com', 'cashier2', NULL, NULL, NULL, '$2y$10$TmqQS2HmcyOQ7zR1m/tOOOl37zwqata3yi/bLqSj1V9hVd.XJfvvm', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:39:56', '2024-08-22 12:29:21', NULL),
+(5, 'cashier3@gmail.com', 'cashier3', NULL, NULL, NULL, '$2y$10$4LrOTtRu0Ys2p7JSEpdmqeobiW5wpV420IA.sT0z2gA.R4kLPSL5a', NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, '2024-08-19 13:40:12', '2024-08-22 12:29:45', NULL);
 
 --
 -- Indexes for dumped tables
@@ -502,7 +512,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`

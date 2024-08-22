@@ -1,68 +1,151 @@
-# CodeIgniter 4 Application Starter
+# APLIKASI SIMPLE-CASHIER
 
-## What is CodeIgniter?
+Jika Anda merasa repositori ini bermanfaat dan ingin menggunakannya, silakan pertimbangkan untuk memberikan bintang. Ini akan menunjukkan dukungan Anda terhadap repositori ini dan membantu orang lain menemukannya.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Persyaratan Pengembangan Situs Web Ini
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Berikut adalah apa yang perlu Anda unduh untuk pertama kali jika Anda ingin mengembangkan situs web ini dengan kode sumber terbaru saya:
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+- [Composer 2.7.5](https://getcomposer.org/)
+- [CodeIgniter 4 4.5.4](https://github.com/codeigniter4/CodeIgniter4/releases/tag/v4.5.4)
+- [XAMPP 8.2.12 Windows](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.12/)
+- [Git](https://git-scm.com/downloads)
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+## Fitur
 
-## Installation & updates
+- Login untuk admin dan kasir
+- Kasir dapat membuat tagihan, melihat list tagihan, melihat detail tagihan dan melihat stok produk
+- Admin dapat melakukan semua kegiatan kasir, menghapus dan mengubah data produk, mengelola akun kasir dan dapat membuat akun untuk kasir
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## Apa yang Saya Gunakan dalam Situs Web Ini ?
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- CodeIgniter 4 v4.5.4
+- Template SB Admin Bootstrap
+- Myth/Auth v1.2.1
 
-## Setup
+## Pengaturan
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+- Pastikan bahwa Anda sudah menginstal semua persyaratan pengembangan situs web di atas.
+- [<b>Download](https://github.com/ImperFecti/simple-cashier/archive/refs/heads/master.zip) file proyek ini </b> dan ekstrak di mana pun Anda inginkan.
+  -Atau Anda dapat menggunakan <b>git</b> dengan `git bash here` ke folder yang ditentukan dan mulai mengkloning repositori ini dengan perintah ini `git clone https://github.com/ImperFecti/simple-cashier.git`.
+- Salin dan tempel file `env` lalu tempelkan kode ini untuk mengatur database:
 
-## Important Change with index.php
+```
+# ENVIRONMENT
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+CI_ENVIRONMENT = development
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+# APP
 
-**Please** read the user guide for a better explanation of how CI4 works!
+app.baseURL = 'http://localhost:8080'
+# If you have trouble with `.`, you could also use `_`.
+# app_baseURL = ''
+# app.forceGlobalSecureRequests = false
+# app.CSPEnabled = false
 
-## Repository Management
+# DATABASE
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+database.default.hostname = localhost
+database.default.database = simple-cashier
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+database.default.DBPrefix =
+database.default.port = 3306
+```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+- Untuk mengimpor database, buka [`phpmyadmin`](http://localhost/phpmyadmin) dan buat database baru dengan nama `bayarlistrik`.
+- Di [`phpmyadmin`](http://localhost/phpmyadmin), pilih database `bayarlistrik` yang Anda buat dan kemudian pilih impor.
+- Impor database bernama `bayarlistrik.sql` di dalam file direktori `APPPATH\app\Database`.
+- itus web ini saat ini menggunakan [`http://localhost:8080/`](http://localhost:8080/) dari spark. Untuk memulai localhost dengan [spark](https://codeigniter.com/user_guide/cli/spark_commands.html), jalankan perintah ini `php spark serve` dari terminal Anda untuk mengaktifkan localhost.
+- Jika Anda ingin mengembangkan situs web ini menggunakan XAMPP, Anda dapat mengubah <b>baseURL</b> di `App.php` dan pastikan file proyek disimpan di `htdocs`.
 
-## Server Requirements
+## Akun Admin
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+Jika Anda menggunakan database yang telah saya sediakan, Anda dapat menggunakan akun admin yang telah terdaftar di bawah ini:
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- Username `admin` password `letslogintoadminaccount`
+- Username `admin2` password `letslogintoadminaccount`
+- Username `cashier2` password `letslogintocashieraccount`
+- Username `cashier3` password `letslogintocashieraccount`
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+## Pengaturan Library Myth\Auth
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+- Jalankan `composer update` dari terminal untuk memperbarui dependensi dengan <b>composer</b>.
+- Setelah pembaruan selesai, Anda dapat menemukan folder bernama `myth\auth` di dalam `APPPATH\app\Vendor` dan mulai mengatur pustaka ini.
+- Jika Anda tidak dapat menemukan pustaka di dalam `Vendor`, coba jalankan perintah ini di dalam terminal.
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+```
+composer require myth/auth
+```
+
+- Temukan `Auth.php` di dalam `Vendor\myth\auth\Config\` dan ubah variabel di bawah ini
+
+### Grup Pengguna Default
+
+Ubah nilai variabel `$defaultUserGroup` menjadi:
+
+```
+public $defaultUserGroup = 'cashier';
+```
+
+### Views
+
+Ubah nilai variabel `$views` menjadi:
+
+```
+public $views = [
+    'login'       => 'Myth\Auth\Views\login',
+    'register'    => 'Myth\Auth\Views\register',
+    'forgot'      => 'Myth\Auth\Views\forgot',
+    'reset'       => 'Myth\Auth\Views\reset',
+    'emailForgot' => 'Myth\Auth\Views\emails\forgot',
+];
+```
+
+## Allow User Registration
+
+Ubah nilai variable `$allowRegistration`
+
+```
+public $allowRegistration = false;
+```
+
+### Allow Password Reset via Email
+
+Ubah nilai variabel `$activeResetter` menjadi:
+
+```
+public $activeResetter = null;
+```
+
+## Preview
+
+- Login
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160637466050682/login.png?ex=66c884b5&is=66c73335&hm=335eace5f872eab9869d4147a8575bf128be8efd557452714d35c31b7d567202&)
+
+- Dashboard
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160635117244429/dashboard.png?ex=66c884b5&is=66c73335&hm=683b2e4a3286fbae17018123e5876396c4608c1fdeb02233e16b9cb52f201063&)
+
+- Profile
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160637004939378/profile.png?ex=66c884b5&is=66c73335&hm=4582f46bc5b02c7f19b7693e7f6f960c664bb1aced39dff7fdea1bb7ca09eb9f&)
+
+- Tabel Transaksi
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160635570487329/datatagihan.png?ex=66c884b5&is=66c73335&hm=18af267c65f9f4e05c9dac7a1811c28ccac938b27afcb6e12c91bb10ed663771&)
+
+- Tabel Kasir
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160635893452902/datakasir.png?ex=66c884b5&is=66c73335&hm=b3860315dc7981df85ce0c6e78f3275192e6a358927011c80ab0ecaaa790b7d2&)
+
+- Tabel Produk
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160636207894530/dataproduk.png?ex=66c884b5&is=66c73335&hm=f4be76b65c5c9c92b7bc10046b6513f6d362e354efdf4269fcf77ac83cf16537&)
+
+- Bukti Tagihan
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160636526657567/buktitagihan.png?ex=66c884b5&is=66c73335&hm=2cf4c87bc86e7b2138612a271e7a7e6487781f87dbe3036e9fd3a07dd6773830&)
+
+## Menemukan masalah saat mengembangkan aplikasi ini?
+
+Buat [issue](https://github.com/ImperFecti/simple-cashier/issues) baru untuk repositori ini atau Anda dapat mencoba menghubungi [email](mailto:adilm8909@gmail.com) / [instagram](https://www.instagram.com/_adilsputra/) / [twitter](https://twitter.com/_adilsputra)
+
+## Ingin berkontribusi pada repositori ini?
+
+Saya menyadari bahwa repositori ini masih belum sempurna dan belum selesai. Jika Anda memiliki ide untuk meningkatkan repositori ini, <b>[Fork](https://github.com/ImperFecti/simple-cashier/fork)</b> halaman repositori ini untuk membuat salinan repositori Anda sendiri di akun GitHub Anda.
