@@ -10,7 +10,7 @@ class TransaksiModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $useSoftDeletes   = false;
-    protected $allowedFields    = ['id_cashier', 'pembayaran', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id_cashier', 'id_pembayaran', 'created_at', 'updated_at'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
@@ -19,8 +19,9 @@ class TransaksiModel extends Model
 
     public function getTransaksiWithCashier($id_transaksi = null)
     {
-        $query = $this->select('transaksi.*, users.username as cashier_name')
-            ->join('users', 'users.id = transaksi.id_cashier');
+        $query = $this->select('transaksi.*, users.username as cashier_name, pembayaran.nama as nama_pembayaran')
+            ->join('users', 'users.id = transaksi.id_cashier')
+            ->join('pembayaran', 'pembayaran.id = transaksi.id_pembayaran'); // Join tabel pembayaran
 
         if ($id_transaksi) {
             return $query->where('transaksi.id', $id_transaksi)->first();

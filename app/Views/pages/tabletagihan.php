@@ -53,7 +53,7 @@
                                         <th scope="row"><?= $i ?></th>
                                         <td><?= esc($t['id_cashier']); ?></td>
                                         <td><?= esc($t['cashier_name']); ?></td>
-                                        <td><?= esc($t['pembayaran']); ?></td>
+                                        <td><?= esc($t['nama_pembayaran']); ?></td>
                                         <td><?= esc($t['created_at']); ?></td>
                                         <td>
                                             <a href="/buktitagihan/<?= esc($t['id']); ?>" class="btn btn-info btn-sm">

@@ -69,7 +69,7 @@
             </div>
             <div class="row">
                 <div class="col-xl-8">
-                    <p class="ms-3">Tagihan Listrik Bulan </p>
+                    <p class="ms-3">Metode Pembayaran : <b><?= esc($transaksi['nama_pembayaran']); ?></b></p>
                 </div>
                 <div class="col-xl-3">
                     <ul class="list-unstyled">

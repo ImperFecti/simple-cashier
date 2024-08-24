@@ -38,3 +38,9 @@ $routes->get('/tablekategori', 'Kategori::tablekategori');
 $routes->post('/tambahkategori', 'Kategori::tambahkategori', ['filter' => 'role:admin']);
 $routes->post('/deletekategori', 'Kategori::deletekategori', ['filter' => 'role:admin']);
 $routes->post('/editkategori/(:num)', 'Kategori::editkategori/$1', ['filter' => 'role:admin']);
+
+// pembayaran management
+$routes->get('/tablepembayaran', 'Pembayaran::tablepembayaran');
+$routes->post('/tambahpembayaran', 'Pembayaran::tambahpembayaran', ['filter' => 'role:admin']);
+$routes->post('/deletepembayaran', 'Pembayaran::deletepembayaran', ['filter' => 'role:admin']);
+$routes->post('/editpembayaran/(:num)', 'Pembayaran::editpembayaran/$1', ['filter' => 'role:admin']);

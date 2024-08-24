@@ -75,9 +75,10 @@
                                             <div class="mb-3 mt-3">
                                                 <label for="pembayaran" class="form-label">Metode Pembayaran</label>
                                                 <select class="form-select" id="pembayaran" name="pembayaran" required>
-                                                    <option value="" selected disabled>Pilih Metode Pembayaran</option> <!-- Opsi awal kosong -->
-                                                    <option value="tunai">Tunai</option>
-                                                    <option value="qris">Qris</option>
+                                                    <option value="" selected disabled>Pilih Metode Pembayaran</option>
+                                                    <?php foreach ($pembayaran as $pb) : ?>
+                                                        <option value="<?= $pb['id']; ?>"><?= $pb['nama']; ?></option>
+                                                    <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </form>
@@ -154,6 +155,17 @@
                                     <i class="fa-solid fa-tags fa-2x"></i>
                                     <h5 class="card-title">List Kategori</h5>
                                     <p class="card-text">Mengatur Data Kategori Yang Terdaftar Di Toko Ini</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card dashboard h-100">
+                            <a href="/tablepembayaran" class="custom-link">
+                                <div class="card-body text-center">
+                                    <i class="fa-solid fa-credit-card fa-2x"></i>
+                                    <h5 class="card-title">List Metode Pembayaran</h5>
+                                    <p class="card-text">Mengatur Data Metode Pembayaran Yang Terdaftar Di Toko Ini</p>
                                 </div>
                             </a>
                         </div>

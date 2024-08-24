@@ -24,8 +24,6 @@ class Tagihan extends BaseController
             'transaksi' => $transaksi
         ];
 
-        // dd($data);
-
         return view('pages/tabletagihan', $data);
     }
 

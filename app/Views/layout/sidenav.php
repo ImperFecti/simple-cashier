@@ -19,6 +19,8 @@
                     </a>
                 <?php endif; ?>
 
+                <div class="sb-sidenav-menu-heading">Data Management</div>
+
                 <!-- Link to Data Transaksi page -->
                 <a class="nav-link" href="/tabletagihan">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-money-bill"></i></div>
@@ -35,6 +37,12 @@
                 <a class="nav-link" href="/tablekategori">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-tags"></i></div>
                     Data Kategori
+                </a>
+
+                <!-- Link to Data Pembayaran Method page -->
+                <a class="nav-link" href="/tablepembayaran">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-credit-card"></i></div>
+                    Metode Pembayaran
                 </a>
                 <!-- Core section end -->
             </div>

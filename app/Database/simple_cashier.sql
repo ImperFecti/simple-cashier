@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2024 at 02:31 PM
+-- Generation Time: Aug 24, 2024 at 08:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -145,7 +145,9 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (37, '::1', 'admin2@gmail.com', 2, '2024-08-22 12:28:25', 1),
 (38, '::1', 'cashier2@gmail.com', 4, '2024-08-22 12:28:52', 1),
 (39, '::1', 'cashier3@gmail.com', 5, '2024-08-22 12:29:28', 1),
-(40, '::1', 'admin@gmail.com', 1, '2024-08-22 12:29:58', 1);
+(40, '::1', 'admin@gmail.com', 1, '2024-08-22 12:29:58', 1),
+(41, '::1', 'admin@gmail.com', 1, '2024-08-24 16:34:35', 1),
+(42, '::1', 'cashier2@gmail.com', 4, '2024-08-24 17:26:07', 1);
 
 -- --------------------------------------------------------
 
@@ -207,16 +209,18 @@ CREATE TABLE `auth_users_permissions` (
 
 CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `nama` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kategori`
 --
 
-INSERT INTO `kategori` (`id`, `nama`) VALUES
-(1, 'makanan'),
-(2, 'minuman');
+INSERT INTO `kategori` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+(1, 'makanan', '2024-08-24 23:57:28', '2024-08-24 23:57:28'),
+(2, 'minuman', '2024-08-24 23:57:28', '2024-08-24 23:57:28');
 
 -- --------------------------------------------------------
 
@@ -244,6 +248,28 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id`, `nama`, `created_at`, `updated_at`) VALUES
+(1, 'Tunai', '2024-08-24 23:48:51', '2024-08-24 23:48:51'),
+(2, 'Debit', '2024-08-24 23:48:51', '2024-08-24 23:48:51'),
+(3, 'Qris', '2024-08-24 23:48:51', '2024-08-24 23:48:51');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `produk`
 --
 
@@ -263,11 +289,11 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `id_kategori`, `nama`, `deskripsi`, `harga`, `stok`, `created_at`, `updated_at`) VALUES
-(1, 1, 'bakso', '', 12000, 3, '2024-08-13 09:04:44', '2024-08-21 22:03:40'),
+(1, 1, 'bakso', '', 12000, 2, '2024-08-13 09:04:44', '2024-08-25 01:18:36'),
 (3, 2, 'es teh', '', 5000, 0, '0000-00-00 00:00:00', '2024-08-21 19:08:05'),
 (4, 1, 'mie goreng', '', 7000, 19, '0000-00-00 00:00:00', '2024-08-21 19:26:25'),
-(5, 2, 'air putih', '', 2000, 19, '0000-00-00 00:00:00', '2024-08-21 19:26:25'),
-(6, 1, 'nasi', '', 1500, 84, '0000-00-00 00:00:00', '2024-08-21 19:37:48'),
+(5, 2, 'air putih', '', 2000, 16, '0000-00-00 00:00:00', '2024-08-25 01:18:36'),
+(6, 1, 'nasi', '', 1500, 83, '0000-00-00 00:00:00', '2024-08-25 01:18:36'),
 (7, 2, 'susu', '', 5000, 85, '0000-00-00 00:00:00', '2024-08-21 19:39:15');
 
 -- --------------------------------------------------------
@@ -279,21 +305,18 @@ INSERT INTO `produk` (`id`, `id_kategori`, `nama`, `deskripsi`, `harga`, `stok`,
 CREATE TABLE `transaksi` (
   `id` int(11) NOT NULL,
   `id_cashier` int(11) UNSIGNED NOT NULL,
-  `pembayaran` enum('tunai','qris') NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `id_pembayaran` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id`, `id_cashier`, `pembayaran`, `created_at`, `updated_at`) VALUES
-(35, 5, 'tunai', '2024-08-21 12:25:53', '2024-08-21 12:25:53'),
-(36, 5, 'tunai', '2024-08-21 12:26:25', '2024-08-21 12:26:25'),
-(37, 5, 'qris', '2024-08-21 12:29:54', '2024-08-21 12:29:54'),
-(38, 5, 'tunai', '2024-08-21 12:37:48', '2024-08-21 12:37:48'),
-(39, 5, 'qris', '2024-08-21 12:39:15', '2024-08-21 12:39:15');
+INSERT INTO `transaksi` (`id`, `id_cashier`, `id_pembayaran`, `created_at`, `updated_at`) VALUES
+(51, 4, 1, '2024-08-24 18:15:54', '2024-08-24 18:15:54'),
+(52, 4, 3, '2024-08-24 18:18:36', '2024-08-24 18:18:36');
 
 -- --------------------------------------------------------
 
@@ -316,13 +339,10 @@ CREATE TABLE `transaksi_detail` (
 --
 
 INSERT INTO `transaksi_detail` (`id`, `id_transaksi`, `id_produk`, `jumlah`, `harga`, `created_at`, `updated_at`) VALUES
-(34, 35, 4, 1, 7000, '2024-08-21 05:25:53', '2024-08-21 05:25:53'),
-(35, 35, 5, 1, 2000, '2024-08-21 05:25:53', '2024-08-21 05:25:53'),
-(36, 36, 4, 1, 7000, '2024-08-21 05:26:25', '2024-08-21 05:26:25'),
-(37, 36, 5, 1, 2000, '2024-08-21 05:26:25', '2024-08-21 05:26:25'),
-(38, 37, 7, 1, 5000, '2024-08-21 05:29:54', '2024-08-21 05:29:54'),
-(39, 38, 6, 1, 1500, '2024-08-21 05:37:48', '2024-08-21 05:37:48'),
-(40, 39, 7, 1, 5000, '2024-08-21 05:39:15', '2024-08-21 05:39:15');
+(41, 51, 5, 1, 2000, '2024-08-24 11:15:54', '2024-08-24 11:15:54'),
+(42, 52, 1, 1, 12000, '2024-08-24 11:18:36', '2024-08-24 11:18:36'),
+(43, 52, 6, 1, 1500, '2024-08-24 11:18:36', '2024-08-24 11:18:36'),
+(44, 52, 5, 2, 4000, '2024-08-24 11:18:36', '2024-08-24 11:18:36');
 
 --
 -- Triggers `transaksi_detail`
@@ -370,9 +390,9 @@ CREATE TABLE `users` (
   `status_message` varchar(255) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
   `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp(),
+  `deleted_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -463,6 +483,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `produk`
 --
 ALTER TABLE `produk`
@@ -474,7 +500,8 @@ ALTER TABLE `produk`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cashier_foreign_id_users` (`id_cashier`);
+  ADD KEY `id_cashier_foreign_id_users` (`id_cashier`),
+  ADD KEY `id_pembayaran_foreign_id_transaksi` (`id_pembayaran`);
 
 --
 -- Indexes for table `transaksi_detail`
@@ -512,7 +539,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -545,6 +572,12 @@ ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
@@ -554,13 +587,13 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -609,7 +642,10 @@ ALTER TABLE `produk`
 -- Constraints for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD CONSTRAINT `id_cashier_foreign_id_users` FOREIGN KEY (`id_cashier`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_transaksi_cashier` FOREIGN KEY (`id_cashier`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_transaksi_pembayaran` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_cashier_foreign_id_users` FOREIGN KEY (`id_cashier`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_pembayaran_foreign_id_transaksi` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaksi_detail`

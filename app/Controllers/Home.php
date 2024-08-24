@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\PembayaranModel;
 use App\Models\UserModel;
 use App\Models\ProdukModel;
 use App\Models\TransaksiDetailModel;
@@ -11,6 +12,7 @@ class Home extends BaseController
 {
     protected $userModel;
     protected $produkModel;
+    protected $pembayaranModel;
     protected $transaksiModel;
     protected $transaksiDetailModel;
 
@@ -18,6 +20,7 @@ class Home extends BaseController
     {
         $this->userModel = new UserModel();
         $this->produkModel = new ProdukModel();
+        $this->pembayaranModel = new PembayaranModel();
         $this->transaksiModel = new TransaksiModel();
         $this->transaksiDetailModel = new TransaksiDetailModel();
     }
@@ -31,6 +34,7 @@ class Home extends BaseController
 
         $user = $this->userModel->find($auth->id());
         $produk = $this->produkModel->findAll();
+        $pembayaran = $this->pembayaranModel->findAll();
 
         // Ambil data stok dan nama produk
         $stokProduk = array_column($produk, 'stok');
@@ -40,6 +44,8 @@ class Home extends BaseController
         $currentYear = date('Y');
         $pendapatanBulanan = $this->transaksiDetailModel->getPendapatanBulanan($currentYear);
 
+        // dd($pembayaran);
+
         return view('pages/index', [
             'title' => 'Home',
             'user' => $user,
@@ -47,6 +53,7 @@ class Home extends BaseController
             'stokProduk' => $stokProduk,
             'namaProduk' => $namaProduk,
             'pendapatanBulanan' => $pendapatanBulanan,
+            'pembayaran' => $pembayaran,
         ]);
     }
 
@@ -58,7 +65,6 @@ class Home extends BaseController
 
         $insufficientStock = $this->cekStok($produkId, $jumlah);
 
-        // Jika ada produk yang stoknya tidak mencukupi, redirect dengan flash data
         if ($insufficientStock) {
             return redirect()->to('/')->with('error', 'Stok produk berikut tidak mencukupi: ' . implode(', ', $insufficientStock) . '.');
         }
@@ -66,7 +72,7 @@ class Home extends BaseController
         // Simpan transaksi utama
         $transaksiData = [
             'id_cashier' => user()->id,
-            'pembayaran' => $pembayaran,
+            'id_pembayaran' => $pembayaran,
         ];
         $this->transaksiModel->save($transaksiData);
         $transaksiId = $this->transaksiModel->insertID();
@@ -76,6 +82,8 @@ class Home extends BaseController
 
         return redirect()->to('/')->with('success', 'Tagihan berhasil disimpan dan stok produk telah diperbarui.');
     }
+
+
 
     private function cekStok(array $produkId, array $jumlah): array
     {
