@@ -32,3 +32,9 @@ $routes->get('/tableproduk', 'Product::tableproduk');
 $routes->post('/tambahproduk', 'Product::tambahproduk', ['filter' => 'role:admin']);
 $routes->post('/deleteproduk', 'Product::deleteproduk', ['filter' => 'role:admin']);
 $routes->post('/editproduk/(:num)', 'Product::editproduk/$1', ['filter' => 'role:admin']);
+
+// category management
+$routes->get('/tablekategori', 'Kategori::tablekategori');
+$routes->post('/tambahkategori', 'Kategori::tambahkategori', ['filter' => 'role:admin']);
+$routes->post('/deletekategori', 'Kategori::deletekategori', ['filter' => 'role:admin']);
+$routes->post('/editkategori/(:num)', 'Kategori::editkategori/$1', ['filter' => 'role:admin']);

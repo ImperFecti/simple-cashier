@@ -9,17 +9,17 @@ use App\Models\TransaksiModel;
 
 class Home extends BaseController
 {
-    protected $UserModel;
-    protected $ProdukModel;
-    protected $TransaksiModel;
-    protected $TransaksiDetailModel;
+    protected $userModel;
+    protected $produkModel;
+    protected $transaksiModel;
+    protected $transaksiDetailModel;
 
     public function __construct()
     {
-        $this->UserModel = new UserModel();
-        $this->ProdukModel = new ProdukModel();
-        $this->TransaksiModel = new TransaksiModel();
-        $this->TransaksiDetailModel = new TransaksiDetailModel();
+        $this->userModel = new UserModel();
+        $this->produkModel = new ProdukModel();
+        $this->transaksiModel = new TransaksiModel();
+        $this->transaksiDetailModel = new TransaksiDetailModel();
     }
 
     public function index(): string
@@ -29,35 +29,26 @@ class Home extends BaseController
             return redirect()->to('/login');
         }
 
-        $userId = $auth->id();
-        $user = $this->UserModel->find($userId);
-        $produk = $this->ProdukModel->getProduk();
+        $user = $this->userModel->find($auth->id());
+        $produk = $this->produkModel->findAll();
 
-        // Ambil data stok produk
-        $stokProduk = [];
-        $namaProduk = [];
-        foreach ($produk as $item) {
-            $stokProduk[] = $item['stok'];
-            $namaProduk[] = $item['nama'];
-        }
+        // Ambil data stok dan nama produk
+        $stokProduk = array_column($produk, 'stok');
+        $namaProduk = array_column($produk, 'nama');
 
         // Ambil data pendapatan per bulan di tahun ini
         $currentYear = date('Y');
-        $pendapatanBulanan = $this->TransaksiDetailModel->getPendapatanBulanan($currentYear);
+        $pendapatanBulanan = $this->transaksiDetailModel->getPendapatanBulanan($currentYear);
 
-        $data = [
+        return view('pages/index', [
             'title' => 'Home',
             'user' => $user,
             'produk' => $produk,
             'stokProduk' => $stokProduk,
             'namaProduk' => $namaProduk,
-            'pendapatanBulanan' => $pendapatanBulanan, // Menyimpan data pendapatan bulanan
-        ];
-
-        return view('pages/index', $data);
+            'pendapatanBulanan' => $pendapatanBulanan,
+        ]);
     }
-
-
 
     public function simpanTagihan()
     {
@@ -65,48 +56,55 @@ class Home extends BaseController
         $jumlah = $this->request->getVar('jumlah');
         $pembayaran = $this->request->getVar('pembayaran');
 
+        $insufficientStock = $this->cekStok($produkId, $jumlah);
+
+        // Jika ada produk yang stoknya tidak mencukupi, redirect dengan flash data
+        if ($insufficientStock) {
+            return redirect()->to('/')->with('error', 'Stok produk berikut tidak mencukupi: ' . implode(', ', $insufficientStock) . '.');
+        }
+
+        // Simpan transaksi utama
+        $transaksiData = [
+            'id_cashier' => user()->id,
+            'pembayaran' => $pembayaran,
+        ];
+        $this->transaksiModel->save($transaksiData);
+        $transaksiId = $this->transaksiModel->insertID();
+
+        // Simpan detail transaksi dan kurangi stok produk
+        $this->simpanDetailTransaksi($transaksiId, $produkId, $jumlah);
+
+        return redirect()->to('/')->with('success', 'Tagihan berhasil disimpan dan stok produk telah diperbarui.');
+    }
+
+    private function cekStok(array $produkId, array $jumlah): array
+    {
         $insufficientStock = [];
 
-        // Cek stok untuk setiap produk
         foreach ($produkId as $index => $id) {
-            $produk = $this->ProdukModel->find($id);
-
+            $produk = $this->produkModel->find($id);
             if ($produk['stok'] < $jumlah[$index]) {
-                $insufficientStock[] = $produk['nama']; // Tambahkan nama produk yang stoknya tidak mencukupi
+                $insufficientStock[] = $produk['nama'];
             }
         }
 
-        // Jika ada produk yang stoknya tidak mencukupi, redirect dengan flash data dan hentikan eksekusi
-        if (!empty($insufficientStock)) {
-            $errorMessage = 'Stok produk berikut tidak mencukupi: ' . implode(', ', $insufficientStock) . '.';
-            return redirect()->to('/')->with('error', $errorMessage);
-        }
+        return $insufficientStock;
+    }
 
-        // Jika semua stok cukup, lanjutkan menyimpan transaksi utama
-        $transaksiData = [
-            'id_cashier' => user()->id, // Ambil id kasir dari user yang login
-            'pembayaran' => $pembayaran,
-        ];
-        $this->TransaksiModel->save($transaksiData);
+    private function simpanDetailTransaksi(int $transaksiId, array $produkId, array $jumlah): void
+    {
+        foreach ($produkId as $index => $id) {
+            $produk = $this->produkModel->find($id);
 
-        $transaksiId = $this->TransaksiModel->insertID();
-
-        // Simpan detail transaksi dan kurangi stok produk
-        for ($i = 0; $i < count($produkId); $i++) {
-            $detailData = [
+            $this->transaksiDetailModel->insert([
                 'id_transaksi' => $transaksiId,
-                'id_produk' => $produkId[$i],
-                'jumlah' => $jumlah[$i],
-                'harga' => $this->request->getVar('total')[$i],
-            ];
-            $this->TransaksiDetailModel->insert($detailData);
+                'id_produk' => $id,
+                'jumlah' => $jumlah[$index],
+                'harga' => $this->request->getVar('total')[$index],
+            ]);
 
             // Kurangi stok produk
-            $this->ProdukModel->update($produkId[$i], [
-                'stok' => $produk['stok'] - $jumlah[$i]
-            ]);
+            $this->produkModel->update($id, ['stok' => $produk['stok'] - $jumlah[$index]]);
         }
-
-        return redirect()->to('/')->with('success', 'Tagihan berhasil disimpan dan stok produk telah diperbarui.');
     }
 }

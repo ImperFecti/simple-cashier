@@ -30,6 +30,12 @@
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-utensils"></i></div>
                     Data Produk
                 </a>
+
+                <!-- Link to Data Kategori page -->
+                <a class="nav-link" href="/tablekategori">
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-tags"></i></div>
+                    Data Kategori
+                </a>
                 <!-- Core section end -->
             </div>
         </div>

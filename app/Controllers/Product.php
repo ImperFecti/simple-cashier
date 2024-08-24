@@ -3,26 +3,30 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\KategoriModel;
 use App\Models\ProdukModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Product extends BaseController
 {
-
     protected $ProdukModel;
+    protected $kategoriModel;
 
     public function __construct()
     {
         $this->ProdukModel = new ProdukModel();
+        $this->kategoriModel = new KategoriModel();
     }
 
     public function tableproduk()
     {
         $produk = $this->ProdukModel->getProduk();
+        $kategori = $this->kategoriModel->findAll();
 
         $data = [
             'title' => 'Table Produk',
-            'produk' => $produk
+            'produk' => $produk,
+            'kategori' => $kategori,
         ];
         // dd($data);
         return view('pages/tableproduk', $data);

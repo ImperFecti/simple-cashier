@@ -97,8 +97,11 @@
                                                             <div class="mb-3">
                                                                 <label for="id_kategori<?= $p['id']; ?>" class="form-label">Kategori</label>
                                                                 <select class="form-select" id="id_kategori<?= $p['id']; ?>" name="id_kategori" required>
-                                                                    <option value="1" <?= ($p['id_kategori'] == 1) ? 'selected' : ''; ?>>Makanan</option>
-                                                                    <option value="2" <?= ($p['id_kategori'] == 2) ? 'selected' : ''; ?>>Minuman</option>
+                                                                    <?php foreach ($kategori as $k): ?>
+                                                                        <option value="<?= $k['id']; ?>" <?= ($p['id_kategori'] == $k['id']) ? 'selected' : ''; ?>>
+                                                                            <?= esc($k['nama']); ?>
+                                                                        </option>
+                                                                    <?php endforeach; ?>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
@@ -163,8 +166,11 @@
                             <label for="id_kategori" class="form-label">Kategori</label>
                             <select class="form-select" id="id_kategori" name="id_kategori" required>
                                 <option value="" disabled selected>Pilih Kategori Produk</option>
-                                <option value="1">Makanan</option>
-                                <option value="2">Minuman</option>
+                                <?php foreach ($kategori as $k): ?>
+                                    <option value="<?= $k['id']; ?>" <?= ($p['id_kategori'] == $k['id']) ? 'selected' : ''; ?>>
+                                        <?= esc($k['nama']); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">

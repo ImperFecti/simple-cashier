@@ -9,31 +9,40 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Cashier extends BaseController
 {
-    protected $UserModel;
+    protected $userModel;
+    protected $auth;
+    protected $authorize;
 
     public function __construct()
     {
-        $this->UserModel = new UserModel();
+        $this->userModel = new UserModel();
+        $this->auth = service('authentication');
+        $this->authorize = service('authorization');
     }
 
-    public function tablecashier()
+    public function tablecashier(): string
     {
-        $auth = service('authentication');
-        $id = $auth->id();
-
-        $cashier = $this->UserModel->getCashierUsers($id);
+        $id = $this->auth->id();
+        $cashiers = $this->userModel->getCashierUsers($id);
 
         $data = [
             'title' => 'Table Cashier',
-            'cashier' => $cashier
+            'cashier' => $cashiers
         ];
-        // dd($data);
+
         return view('pages/tablecashier', $data);
     }
 
-    public function tambahcashier()
+    public function tambahcashier(): ResponseInterface
     {
-        $authorize = service('authorization');
+        // Validasi input
+        if (!$this->validate([
+            'username' => 'required|min_length[3]|max_length[30]',
+            'email' => 'required|valid_email',
+            'password' => 'required|min_length[6]',
+        ])) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
 
         $data = [
             'username' => $this->request->getVar('username'),
@@ -42,34 +51,42 @@ class Cashier extends BaseController
             'active' => 1
         ];
 
-        $cashierModel = new UserModel();
-        $cashierId = $cashierModel->insert($data, true);
+        $cashierId = $this->userModel->insert($data, true);
 
         if ($cashierId) {
-            $authorize->addUserToGroup($cashierId, config('Auth')->defaultUserGroup);
+            $this->authorize->addUserToGroup($cashierId, config('Auth')->defaultUserGroup);
         }
 
         return redirect()->to('/tablecashier')->with('message', 'User successfully added.');
     }
 
-    public function editcashier($id)
+    public function editcashier($id): ResponseInterface
     {
+        // Validasi input
+        if (!$this->validate([
+            'username' => 'required|min_length[3]|max_length[30]',
+            'email' => 'required|valid_email',
+            'active' => 'required|in_list[0,1]',
+        ])) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
         $data = [
-            'id' => $this->request->getPost('id'),
             'username' => $this->request->getPost('username'),
             'email' => $this->request->getPost('email'),
             'active' => $this->request->getPost('active')
         ];
 
-        $this->UserModel->update($id, $data);
+        $this->userModel->update($id, $data);
+
         return redirect()->to('/tablecashier')->with('message', 'User successfully updated.');
     }
 
-    public function deletecashier()
+    public function deletecashier(): ResponseInterface
     {
         $id = $this->request->getPost('id');
 
-        $this->UserModel->delete($id);
+        $this->userModel->delete($id);
 
         return redirect()->to('/tablecashier')->with('message', 'User successfully deleted.');
     }
