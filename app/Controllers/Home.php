@@ -33,14 +33,31 @@ class Home extends BaseController
         $user = $this->UserModel->find($userId);
         $produk = $this->ProdukModel->getProduk();
 
+        // Ambil data stok produk
+        $stokProduk = [];
+        $namaProduk = [];
+        foreach ($produk as $item) {
+            $stokProduk[] = $item['stok'];
+            $namaProduk[] = $item['nama'];
+        }
+
+        // Ambil data pendapatan per bulan di tahun ini
+        $currentYear = date('Y');
+        $pendapatanBulanan = $this->TransaksiDetailModel->getPendapatanBulanan($currentYear);
+
         $data = [
             'title' => 'Home',
             'user' => $user,
-            'produk' => $produk
+            'produk' => $produk,
+            'stokProduk' => $stokProduk,
+            'namaProduk' => $namaProduk,
+            'pendapatanBulanan' => $pendapatanBulanan, // Menyimpan data pendapatan bulanan
         ];
 
         return view('pages/index', $data);
     }
+
+
 
     public function simpanTagihan()
     {

@@ -51,6 +51,7 @@
                                     <?php if (in_groups("admin")): ?>
                                         <th>Action</th>
                                     <?php endif; ?>
+                                    <th>Updated At</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -75,6 +76,7 @@
                                                 </button>
                                             </td>
                                         <?php endif; ?>
+                                        <td><?= esc($p['updated_at']); ?></td>
                                     </tr>
                                     <!-- Edit Product Modal -->
                                     <?php if (in_groups("admin")): ?>
@@ -105,16 +107,16 @@
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="harga<?= $p['id']; ?>" class="form-label">Harga Produk</label>
-                                                                <input type="numeric" class="form-control" id="harga<?= $p['id']; ?>" name="harga" value="<?= $p['harga']; ?>" required>
+                                                                <input type="number" class="form-control" id="harga<?= $p['id']; ?>" name="harga" value="<?= $p['harga']; ?>" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="stok<?= $p['id']; ?>" class="form-label">Stok Produk</label>
-                                                                <input type="numeric" class="form-control" id="stok<?= $p['id']; ?>" name="stok" value="<?= $p['stok']; ?>" required>
+                                                                <input type="number" class="form-control" id="stok<?= $p['id']; ?>" name="stok" value="<?= $p['stok']; ?>" min="0" required>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    <button type="submit" class="btn btn-success">Ubah Data Produk</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -171,16 +173,16 @@
                         </div>
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga Produk</label>
-                            <input type="numeric" class="form-control" id="harga" name="harga">
+                            <input type="number" class="form-control" id="harga" name="harga" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="stok" class="form-label">Stok Produk</label>
-                            <input type="numeric" class="form-control" id="stok" name="stok">
+                            <input type="number" class="form-control" id="stok" name="stok" min="0" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-success">Tambahkan Produk</button>
                     </div>
                 </form>
             </div>

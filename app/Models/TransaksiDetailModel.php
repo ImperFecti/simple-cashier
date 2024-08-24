@@ -27,4 +27,14 @@ class TransaksiDetailModel extends Model
             ->where('transaksi_detail.id_transaksi', $id_transaksi)
             ->findAll();
     }
+
+    public function getPendapatanBulanan($year)
+    {
+        return $this->select('MONTH(transaksi.created_at) as bulan, SUM(transaksi_detail.harga) as total')
+        ->join('transaksi', 'transaksi.id = transaksi_detail.id_transaksi')
+        ->where('YEAR(transaksi.created_at)', $year)
+            ->groupBy('bulan')
+            ->findAll();
+    }
+
 }

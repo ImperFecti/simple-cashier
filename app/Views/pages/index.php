@@ -92,6 +92,26 @@
                     <?php endif; ?>
                 </div>
                 <div class="row">
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-area me-1"></i>
+                                Stok Produk
+                            </div>
+                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar me-1"></i>
+                                Pendapatan Bulanan
+                            </div>
+                            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3 mb-4">
                         <div class="card dashboard h-100">
                             <a href="/tabletagihan" class="custom-link">
@@ -130,6 +150,14 @@
                 </div>
             </div>
         </main>
+
+        <script id="stokProdukData" type="application/json">
+            <?= json_encode($produk); ?>
+        </script>
+
+        <script id="pendapatanBulananData" type="application/json">
+            <?= json_encode($pendapatanBulanan); ?>
+        </script>
 
         <!-- include the admin footer layout -->
         <?= $this->include('layout/footer'); ?>
