@@ -27,16 +27,16 @@ function getMaxStok(data) {
 const stokProduk = getDataStok();
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
-var myLineChart = new Chart(ctx, {
-  type: "line",
+var ctx = document.getElementById("myStokChart");
+var myStokChart = new Chart(ctx, {
+  type: "bar",
   data: {
     labels: stokProduk.labels,
     datasets: [
       {
         label: "Stok Produk",
         lineTension: 0.3,
-        backgroundColor: "rgba(2,117,216,0.2)",
+        backgroundColor: "rgba(2,117,216,1)",
         borderColor: "rgba(2,117,216,1)",
         pointRadius: 5,
         pointBackgroundColor: "rgba(2,117,216,1)",

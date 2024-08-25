@@ -44,7 +44,8 @@ class Home extends BaseController
         $currentYear = date('Y');
         $pendapatanBulanan = $this->transaksiDetailModel->getPendapatanBulanan($currentYear);
 
-        // dd($pembayaran);
+        // Ambil data penggunaan metode pembayaran
+        $metodePembayaran = $this->transaksiModel->getMetodePembayaranCount();
 
         return view('pages/index', [
             'title' => 'Home',
@@ -54,6 +55,7 @@ class Home extends BaseController
             'namaProduk' => $namaProduk,
             'pendapatanBulanan' => $pendapatanBulanan,
             'pembayaran' => $pembayaran,
+            'metodePembayaran' => $metodePembayaran, // Pass data ke view
         ]);
     }
 

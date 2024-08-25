@@ -11,7 +11,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Data Kategori</h1>
+                <h1 class="mt-4">Data Metode Pembayaran</h1>
                 <?php if (session()->getFlashdata('message')) : ?>
                     <div class="alert alert-success">
                         <?= session()->getFlashdata('message') ?>

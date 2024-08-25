@@ -93,22 +93,31 @@
                     <?php endif; ?>
                 </div>
                 <div class="row">
-                    <div class="col-xl-6">
+                    <div class="col-xl-12">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-area me-1"></i>
-                                Stok Produk
+                                Pendapatan Bulanan
                             </div>
-                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                            <div class="card-body"><canvas id="myPendapatanChart" width="100%" height="40"></canvas></div>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar me-1"></i>
-                                Pendapatan Bulanan
+                                Stok Produk
                             </div>
-                            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                            <div class="card-body"><canvas id="myStokChart" width="100%" height="40"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-chart-pie me-1"></i>
+                                Metode Pembayaran
+                            </div>
+                            <div class="card-body"><canvas id="myPembayaranChart" width="100%" height="40"></canvas></div>
                         </div>
                     </div>
                 </div>
@@ -180,6 +189,10 @@
 
         <script id="pendapatanBulananData" type="application/json">
             <?= json_encode($pendapatanBulanan); ?>
+        </script>
+
+        <script id="metodePembayaranData" type="application/json">
+            <?= json_encode($metodePembayaran); ?>
         </script>
 
         <!-- include the admin footer layout -->

@@ -29,4 +29,12 @@ class TransaksiModel extends Model
 
         return $query->findAll();
     }
+
+    public function getMetodePembayaranCount()
+    {
+        return $this->select('pembayaran.nama as nama_pembayaran, COUNT(transaksi.id) as jumlah')
+            ->join('pembayaran', 'pembayaran.id = transaksi.id_pembayaran')
+            ->groupBy('transaksi.id_pembayaran')
+            ->findAll();
+    }
 }

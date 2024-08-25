@@ -9,10 +9,10 @@
                     Home Page
                 </a>
 
-                <div class="sb-sidenav-menu-heading">User Management</div>
-
-                <!-- Link to Data Kasir page -->
                 <?php if (in_groups("admin")) : ?>
+                    <div class="sb-sidenav-menu-heading">User Management</div>
+
+                    <!-- Link to Data Kasir page -->
                     <a class="nav-link" href="/tablecashier">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-person"></i></div>
                         Akun Kasir

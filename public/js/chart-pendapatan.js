@@ -31,15 +31,15 @@ pendapatanBulananData.forEach((data) => {
 });
 
 // Membuat bar chart
-var ctx = document.getElementById("myBarChart").getContext("2d");
-var myBarChart = new Chart(ctx, {
-  type: "bar",
+var ctx = document.getElementById("myPendapatanChart").getContext("2d");
+var myPendapatanChart = new Chart(ctx, {
+  type: "line",
   data: {
     labels: bulanLabels,
     datasets: [
       {
         label: "Total Pendapatan",
-        backgroundColor: "rgba(2,117,216,1)",
+        backgroundColor: "rgba(2,117,216,0.2)",
         borderColor: "rgba(2,117,216,1)",
         data: pendapatanBulanan,
       },

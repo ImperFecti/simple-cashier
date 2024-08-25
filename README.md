@@ -16,6 +16,8 @@ Berikut adalah apa yang perlu Anda unduh untuk pertama kali jika Anda ingin meng
 - Login untuk admin dan kasir
 - Kasir dapat membuat tagihan, melihat list tagihan, melihat detail tagihan dan melihat stok produk
 - Admin dapat melakukan semua kegiatan kasir, menghapus dan mengubah data produk, mengelola akun kasir dan dapat membuat akun untuk kasir
+- Admin dapat menambahkan atau mengubah data metode pembayaran
+- Tampilan website responsif
 
 ## Apa yang Saya Gunakan dalam Situs Web Ini ?
 
@@ -125,7 +127,9 @@ public $activeResetter = null;
   ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160637466050682/login.png?ex=66c884b5&is=66c73335&hm=335eace5f872eab9869d4147a8575bf128be8efd557452714d35c31b7d567202&)
 
 - Dashboard
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160635117244429/dashboard.png?ex=66c884b5&is=66c73335&hm=683b2e4a3286fbae17018123e5876396c4608c1fdeb02233e16b9cb52f201063&)
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881071349760/dashboard1.png?ex=66cc504e&is=66cafece&hm=654939f704459d663f210fb3ce0be8986aba2b50515be84a01f81f10468bd3cf&)
+
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881398501419/dashboard2.png?ex=66cc504e&is=66cafece&hm=649c7bb379c1f89d548f52f8bc20c6eb1b1ad6441de824814263944c2a20bd3f&)
 
 - Profile
   ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160637004939378/profile.png?ex=66c884b5&is=66c73335&hm=4582f46bc5b02c7f19b7693e7f6f960c664bb1aced39dff7fdea1bb7ca09eb9f&)
@@ -139,8 +143,11 @@ public $activeResetter = null;
 - Tabel Produk
   ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160636207894530/dataproduk.png?ex=66c884b5&is=66c73335&hm=f4be76b65c5c9c92b7bc10046b6513f6d362e354efdf4269fcf77ac83cf16537&)
 
+- Tabel Metode Pembayaran
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881998159946/tablepembayaran.png?ex=66cc504e&is=66cafece&hm=927a3adfe97a4d8ce2366fd895c577bd11df7621eb6fabf0e7369a84e4a88fe9&)
+
 - Bukti Tagihan
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160636526657567/buktitagihan.png?ex=66c884b5&is=66c73335&hm=2cf4c87bc86e7b2138612a271e7a7e6487781f87dbe3036e9fd3a07dd6773830&)
+  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881708748860/buktitagihan.png?ex=66cc504e&is=66cafece&hm=5f508d9bf3dba07de395167968e8bde67517b32aad19ce786879705ab89463ec&)
 
 ## Menemukan masalah saat mengembangkan aplikasi ini?
 
@@ -148,4 +155,4 @@ Buat [issue](https://github.com/ImperFecti/simple-cashier/issues) baru untuk rep
 
 ## Ingin berkontribusi pada repositori ini?
 
-Saya menyadari bahwa repositori ini masih belum sempurna dan belum selesai. Jika Anda memiliki ide untuk meningkatkan repositori ini, <b>[Fork](https://github.com/ImperFecti/simple-cashier/fork)</b> halaman repositori ini untuk membuat salinan repositori Anda sendiri di akun GitHub Anda.
+Saya menyadari bahwa repositori ini masih belum sempurna dan belum optimal. Jika Anda memiliki ide untuk meningkatkan repositori ini, <b>[Fork](https://github.com/ImperFecti/simple-cashier/fork)</b> halaman repositori ini untuk membuat salinan repositori Anda sendiri di akun GitHub Anda.
