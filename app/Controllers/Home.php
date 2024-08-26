@@ -47,6 +47,19 @@ class Home extends BaseController
         // Ambil data penggunaan metode pembayaran
         $metodePembayaran = $this->transaksiModel->getMetodePembayaranCount();
 
+        // Ambil pendapatan bulan sekarang dan bulan sebelumnya
+        $currentMonth = date('m');
+        $lastMonth = date('m', strtotime('-1 month'));
+
+        $pendapatanBulanIni = $this->transaksiDetailModel->getPendapatanByMonth($currentYear, $currentMonth);
+        $pendapatanBulanLalu = $this->transaksiDetailModel->getPendapatanByMonth($currentYear, $lastMonth);
+
+        // Hitung persentase perubahan pendapatan
+        $statusPerbandingan = $this->bandingkanPendapatan($pendapatanBulanIni, $pendapatanBulanLalu);
+
+        // Ambil total pendapatan keseluruhan
+        $totalPendapatan = $this->transaksiDetailModel->getTotalPendapatan();
+
         return view('pages/index', [
             'title' => 'Home',
             'user' => $user,
@@ -55,8 +68,28 @@ class Home extends BaseController
             'namaProduk' => $namaProduk,
             'pendapatanBulanan' => $pendapatanBulanan,
             'pembayaran' => $pembayaran,
-            'metodePembayaran' => $metodePembayaran, // Pass data ke view
+            'metodePembayaran' => $metodePembayaran,
+            'statusPerbandingan' => $statusPerbandingan,
+            'totalPendapatan' => $totalPendapatan, // Kirim data ini ke view
         ]);
+    }
+
+    private function bandingkanPendapatan($pendapatanBulanIni, $pendapatanBulanLalu)
+    {
+        if ($pendapatanBulanLalu == 0) {
+            return 'Tidak ada data pendapatan bulan lalu untuk perbandingan.';
+        }
+
+        $selisih = $pendapatanBulanIni - $pendapatanBulanLalu;
+        $persentase = ($selisih / $pendapatanBulanLalu) * 100;
+
+        if ($selisih > 0) {
+            return "Pendapatan bulan ini meningkat sebesar " . number_format($persentase, 2) . "% dibandingkan dengan bulan lalu.";
+        } elseif ($selisih < 0) {
+            return "Pendapatan bulan ini menurun sebesar " . number_format(abs($persentase), 2) . "% dibandingkan dengan bulan lalu.";
+        } else {
+            return 'Pendapatan bulan ini sama dengan bulan lalu.';
+        }
     }
 
     public function simpanTagihan()

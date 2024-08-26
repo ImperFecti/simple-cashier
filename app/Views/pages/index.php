@@ -92,6 +92,12 @@
                         </div>
                     <?php endif; ?>
                 </div>
+
+                <div class="alert alert-info mt-3">
+                    <?= $statusPerbandingan; ?>
+                    Total Pendapatan Keseluruhan: Rp<?= number_format($totalPendapatan, 0, ',', '.'); ?>
+                </div>
+
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card mb-4">

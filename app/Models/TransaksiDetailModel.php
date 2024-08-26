@@ -31,10 +31,25 @@ class TransaksiDetailModel extends Model
     public function getPendapatanBulanan($year)
     {
         return $this->select('MONTH(transaksi.created_at) as bulan, SUM(transaksi_detail.harga) as total')
-        ->join('transaksi', 'transaksi.id = transaksi_detail.id_transaksi')
-        ->where('YEAR(transaksi.created_at)', $year)
+            ->join('transaksi', 'transaksi.id = transaksi_detail.id_transaksi')
+            ->where('YEAR(transaksi.created_at)', $year)
             ->groupBy('bulan')
             ->findAll();
     }
 
+    public function getPendapatanByMonth($year, $month)
+    {
+        return $this->selectSum('harga')
+        ->join('transaksi', 'transaksi_detail.id_transaksi = transaksi.id')
+        ->where('YEAR(transaksi.created_at)', $year)
+            ->where('MONTH(transaksi.created_at)', $month)
+            ->first()['harga'];
+    }
+
+    public function getTotalPendapatan()
+    {
+        return $this->selectSum('harga')
+        ->join('transaksi', 'transaksi_detail.id_transaksi = transaksi.id')
+        ->first()['harga'];
+    }
 }
