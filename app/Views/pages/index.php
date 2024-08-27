@@ -27,7 +27,7 @@
                     <div>
                         <h1>Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Selamat datang kembali, <b><?= $user['username']; ?></b> !!</li>
+                            <li class="breadcrumb-item active">Selamat datang kembali, <b><?= $user['namalengkap']; ?></b> !!</li>
                         </ol>
                     </div>
                     <?php if (in_groups("cashier")) : ?>
@@ -45,7 +45,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="tambahTagihanForm" action="/simpanTagihan" method="post">
+                                        <form id="tambahTagihanForm" action="/simpanTagihan" method="post" onsubmit="return validateForm()">
                                             <?= csrf_field(); ?>
                                             <div id="produkContainer">
                                                 <div class="produk-item mb-3">
@@ -55,7 +55,7 @@
                                                             <option value="" selected disabled>Pilih Produk</option>
                                                             <?php foreach ($produk as $p) : ?>
                                                                 <option value="<?= $p['id']; ?>" data-harga="<?= $p['harga']; ?>">
-                                                                    <?= $p['nama']; ?> - Rp<?= $p['harga']; ?>
+                                                                    <?= $p['nama']; ?> - Rp <?= number_format($p['harga'], 0, ',', '.'); ?>
                                                                 </option>
                                                             <?php endforeach; ?>
                                                         </select>
@@ -66,7 +66,8 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="total" class="form-label">Total Harga</label>
-                                                        <input type="text" class="form-control total" name="total[]" readonly>
+                                                        <input type="hidden" class="form-control total" name="total[]" readonly>
+                                                        <span class="total-formatted"></span>
                                                     </div>
                                                     <button type="button" class="btn btn-danger btn-sm remove-produk">Hapus Produk</button>
                                                 </div>
@@ -93,9 +94,102 @@
                     <?php endif; ?>
                 </div>
 
-                <div class="alert alert-info mt-3">
-                    <?= $statusPerbandingan; ?>
-                    Total Pendapatan Keseluruhan: Rp<?= number_format($totalPendapatan, 0, ',', '.'); ?>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card <?= $bgClass; ?> text-white mb-4">
+                            <div class="card-body">Pendapatan</div>
+                            <a class="card-footer d-flex align-items-center justify-content-between" style="text-decoration:none;" role="button" data-bs-toggle="modal" data-bs-target="#pendapatanModal">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="pendapatanModal" tabindex="-1" aria-labelledby="pendapatanModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="pendapatanModalLabel">Pendapatan</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?= $statusPerbandingan; ?> dan Total Pendapatan Keseluruhan yaitu Rp<?= number_format($totalPendapatan, 0, ',', '.'); ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-primary text-white mb-4">
+                            <div class="card-body">Penggunaan Metode Pembayaran</div>
+                            <a class="card-footer d-flex align-items-center justify-content-between" style="text-decoration:none;" role="button" data-bs-toggle="modal" data-bs-target="#metodeBayarModal">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="metodeBayarModal" tabindex="-1" aria-labelledby="metodeBayarModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="metodeBayarModalLabel">Laporan Penggunaan Metode Pembayaran</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul>
+                                        <?php foreach ($perbandinganPembayaran as $pembayaran): ?>
+                                            <li>
+                                                Metode Pembayaran: <?= $pembayaran['namaPembayaran']; ?> -
+                                                Bulan Ini: <?= $pembayaran['countBulanIni']; ?>,
+                                                Bulan Lalu: <?= $pembayaran['countBulanLalu']; ?>,
+                                                Perubahan: <?= $pembayaran['status']; ?> sebesar <?= number_format($pembayaran['persentase'], 2); ?>%
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-primary text-white mb-4">
+                            <div class="card-body">Produk Paling Banyak Dipesan</div>
+                            <a class="card-footer d-flex align-items-center justify-content-between" style="text-decoration:none;" role="button" data-bs-toggle="modal" data-bs-target="#topProductsModal">
+                                Lihat Detail
+                            </a>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="topProductsModal" tabindex="-1" aria-labelledby="topProductsModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="topProductsModalLabel">Produk Paling Banyak Dipesan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group">
+                                        <?php if (!empty($topOrderedProducts)): ?>
+                                            <?php foreach ($topOrderedProducts as $product): ?>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <?= esc($product['nama']); ?>
+                                                    <span class="badge bg-primary rounded-pill"><?= esc($product['total_pesanan']); ?></span>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <li class="list-group-item">Tidak ada data produk</li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">

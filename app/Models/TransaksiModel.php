@@ -21,7 +21,7 @@ class TransaksiModel extends Model
     {
         $query = $this->select('transaksi.*, users.username as cashier_name, pembayaran.nama as nama_pembayaran')
             ->join('users', 'users.id = transaksi.id_cashier')
-            ->join('pembayaran', 'pembayaran.id = transaksi.id_pembayaran'); // Join tabel pembayaran
+            ->join('pembayaran', 'pembayaran.id = transaksi.id_pembayaran');
 
         if ($id_transaksi) {
             return $query->where('transaksi.id', $id_transaksi)->first();

@@ -28,68 +28,82 @@ class Home extends BaseController
     public function index(): string
     {
         $auth = service('authentication');
-        if (!$auth->isLoggedIn()) {
-            return redirect()->to('/login');
-        }
+        if (!$auth->isLoggedIn()) return redirect()->to('/login');
 
+        $title = 'Dashboard';
         $user = $this->userModel->find($auth->id());
-        $produk = $this->produkModel->findAll();
+        $produk = $this->produkModel->getProduk();
         $pembayaran = $this->pembayaranModel->findAll();
-
-        // Ambil data stok dan nama produk
+        $topOrderedProducts = $this->produkModel->getTopOrderedProducts();
         $stokProduk = array_column($produk, 'stok');
         $namaProduk = array_column($produk, 'nama');
-
-        // Ambil data pendapatan per bulan di tahun ini
         $currentYear = date('Y');
         $pendapatanBulanan = $this->transaksiDetailModel->getPendapatanBulanan($currentYear);
-
-        // Ambil data penggunaan metode pembayaran
         $metodePembayaran = $this->transaksiModel->getMetodePembayaranCount();
-
-        // Ambil pendapatan bulan sekarang dan bulan sebelumnya
-        $currentMonth = date('m');
-        $lastMonth = date('m', strtotime('-1 month'));
-
-        $pendapatanBulanIni = $this->transaksiDetailModel->getPendapatanByMonth($currentYear, $currentMonth);
-        $pendapatanBulanLalu = $this->transaksiDetailModel->getPendapatanByMonth($currentYear, $lastMonth);
-
-        // Hitung persentase perubahan pendapatan
+        $pendapatanBulanIni = $this->transaksiDetailModel->getPendapatanByMonth($currentYear, date('m'));
+        $pendapatanBulanLalu = $this->transaksiDetailModel->getPendapatanByMonth($currentYear, date('m', strtotime('-1 month')));
         $statusPerbandingan = $this->bandingkanPendapatan($pendapatanBulanIni, $pendapatanBulanLalu);
-
-        // Ambil total pendapatan keseluruhan
+        $perbandinganPembayaran = $this->bandingkanPembayaran(
+            $this->pembayaranModel->getMetodePembayaranCountByMonth($currentYear, date('m')),
+            $this->pembayaranModel->getMetodePembayaranCountByMonth($currentYear, date('m', strtotime('-1 month')))
+        );
+        $bgClass = $this->tentukanKelasCSS($pendapatanBulanIni, $pendapatanBulanLalu);
         $totalPendapatan = $this->transaksiDetailModel->getTotalPendapatan();
 
-        return view('pages/index', [
-            'title' => 'Home',
-            'user' => $user,
-            'produk' => $produk,
-            'stokProduk' => $stokProduk,
-            'namaProduk' => $namaProduk,
-            'pendapatanBulanan' => $pendapatanBulanan,
-            'pembayaran' => $pembayaran,
-            'metodePembayaran' => $metodePembayaran,
-            'statusPerbandingan' => $statusPerbandingan,
-            'totalPendapatan' => $totalPendapatan, // Kirim data ini ke view
-        ]);
+        return view('pages/index', compact(
+            'title',
+            'user',
+            'produk',
+            'stokProduk',
+            'namaProduk',
+            'pendapatanBulanan',
+            'pembayaran',
+            'metodePembayaran',
+            'statusPerbandingan',
+            'totalPendapatan',
+            'perbandinganPembayaran',
+            'topOrderedProducts',
+            'bgClass'
+        ));
     }
 
     private function bandingkanPendapatan($pendapatanBulanIni, $pendapatanBulanLalu)
     {
-        if ($pendapatanBulanLalu == 0) {
-            return 'Tidak ada data pendapatan bulan lalu untuk perbandingan.';
-        }
-
+        if ($pendapatanBulanLalu == 0) return 'Tidak ada data pendapatan bulan lalu untuk perbandingan';
         $selisih = $pendapatanBulanIni - $pendapatanBulanLalu;
         $persentase = ($selisih / $pendapatanBulanLalu) * 100;
+        return $selisih > 0
+            ? "Pendapatan bulan ini meningkat sebesar " . number_format($persentase, 2) . "% dibandingkan dengan bulan lalu"
+            : ($selisih < 0
+                ? "Pendapatan bulan ini menurun sebesar " . number_format(abs($persentase), 2) . "% dibandingkan dengan bulan lalu"
+                : 'Pendapatan bulan ini sama dengan bulan lalu.');
+    }
 
-        if ($selisih > 0) {
-            return "Pendapatan bulan ini meningkat sebesar " . number_format($persentase, 2) . "% dibandingkan dengan bulan lalu.";
-        } elseif ($selisih < 0) {
-            return "Pendapatan bulan ini menurun sebesar " . number_format(abs($persentase), 2) . "% dibandingkan dengan bulan lalu.";
-        } else {
-            return 'Pendapatan bulan ini sama dengan bulan lalu.';
+    private function bandingkanPembayaran($bulanIni, $bulanLalu)
+    {
+        $hasilPerbandingan = [];
+        foreach ($bulanIni as $pembayaranIni) {
+            $idPembayaran = $pembayaranIni['id_pembayaran'];
+            $countBulanIni = $pembayaranIni['count'];
+            $namaPembayaran = $this->pembayaranModel->getNamaPembayaranById($idPembayaran)['nama'];
+            $countBulanLalu = 0;
+            foreach ($bulanLalu as $pembayaranLalu) {
+                if ($pembayaranLalu['id_pembayaran'] == $idPembayaran) {
+                    $countBulanLalu = $pembayaranLalu['count'];
+                    break;
+                }
+            }
+            $persentase = $countBulanLalu == 0 ? ($countBulanIni > 0 ? 100 : 0) : (($countBulanIni - $countBulanLalu) / $countBulanLalu) * 100;
+            $status = $persentase > 0 ? 'meningkat' : ($persentase < 0 ? 'menurun' : 'sama');
+            $hasilPerbandingan[] = compact('namaPembayaran', 'countBulanIni', 'countBulanLalu', 'persentase', 'status');
         }
+        return $hasilPerbandingan;
+    }
+
+    private function tentukanKelasCSS($pendapatanBulanIni, $pendapatanBulanLalu)
+    {
+        if ($pendapatanBulanLalu == 0) return 'bg-secondary';
+        return $pendapatanBulanIni > $pendapatanBulanLalu ? 'bg-success' : ($pendapatanBulanIni < $pendapatanBulanLalu ? 'bg-danger' : 'bg-secondary');
     }
 
     public function simpanTagihan()
@@ -97,40 +111,23 @@ class Home extends BaseController
         $produkId = $this->request->getVar('produk');
         $jumlah = $this->request->getVar('jumlah');
         $pembayaran = $this->request->getVar('pembayaran');
-
         $insufficientStock = $this->cekStok($produkId, $jumlah);
-
         if ($insufficientStock) {
             return redirect()->to('/')->with('error', 'Stok produk berikut tidak mencukupi: ' . implode(', ', $insufficientStock) . '.');
         }
-
-        // Simpan transaksi utama
-        $transaksiData = [
-            'id_cashier' => user()->id,
-            'id_pembayaran' => $pembayaran,
-        ];
-        $this->transaksiModel->save($transaksiData);
+        $this->transaksiModel->save(['id_cashier' => user()->id, 'id_pembayaran' => $pembayaran]);
         $transaksiId = $this->transaksiModel->insertID();
-
-        // Simpan detail transaksi dan kurangi stok produk
         $this->simpanDetailTransaksi($transaksiId, $produkId, $jumlah);
-
         return redirect()->to('/')->with('success', 'Tagihan berhasil disimpan dan stok produk telah diperbarui.');
     }
-
-
 
     private function cekStok(array $produkId, array $jumlah): array
     {
         $insufficientStock = [];
-
         foreach ($produkId as $index => $id) {
             $produk = $this->produkModel->find($id);
-            if ($produk['stok'] < $jumlah[$index]) {
-                $insufficientStock[] = $produk['nama'];
-            }
+            if ($produk['stok'] < $jumlah[$index]) $insufficientStock[] = $produk['nama'];
         }
-
         return $insufficientStock;
     }
 
@@ -138,15 +135,12 @@ class Home extends BaseController
     {
         foreach ($produkId as $index => $id) {
             $produk = $this->produkModel->find($id);
-
-            $this->transaksiDetailModel->insert([
+            $this->transaksiDetailModel->save([
                 'id_transaksi' => $transaksiId,
                 'id_produk' => $id,
                 'jumlah' => $jumlah[$index],
-                'harga' => $this->request->getVar('total')[$index],
+                'harga' => $produk['harga'],
             ]);
-
-            // Kurangi stok produk
             $this->produkModel->update($id, ['stok' => $produk['stok'] - $jumlah[$index]]);
         }
     }

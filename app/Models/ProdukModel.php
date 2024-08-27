@@ -25,4 +25,14 @@ class ProdukModel extends Model
             ->join('kategori', 'kategori.id = produk.id_kategori', 'left')
             ->findAll();
     }
+
+    public function getTopOrderedProducts($limit = 5)
+    {
+        return $this->select('produk.nama, SUM(transaksi_detail.jumlah) as total_pesanan')
+            ->join('transaksi_detail', 'transaksi_detail.id_produk = produk.id')
+            ->groupBy('produk.id')
+            ->orderBy('total_pesanan', 'DESC')
+            ->limit($limit)
+            ->findAll();
+    }
 }

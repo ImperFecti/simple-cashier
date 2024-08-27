@@ -19,4 +19,22 @@ class PembayaranModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function getNamaPembayaranById($id)
+    {
+        return $this->where('id', $id)->first();
+    }
+
+    // Fungsi untuk mendapatkan jumlah penggunaan metode pembayaran per bulan
+    public function getMetodePembayaranCountByMonth($year, $month)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('transaksi');
+        $builder->select('id_pembayaran, COUNT(*) as count');
+        $builder->where('YEAR(created_at)', $year);
+        $builder->where('MONTH(created_at)', $month);
+        $builder->groupBy('id_pembayaran');
+
+        return $builder->get()->getResultArray();
+    }
 }

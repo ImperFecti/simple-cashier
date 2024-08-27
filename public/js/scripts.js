@@ -7,53 +7,74 @@
 // Scripts
 //
 
+// const popoverTriggerList = document.querySelectorAll(
+//   '[data-bs-toggle="popover"]'
+// );
+
+// const popoverList = [...popoverTriggerList].map(
+//   (popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl)
+// );
+
 document.addEventListener("DOMContentLoaded", function () {
   function updateTotal(element) {
     const produkSelect = element.querySelector(".produk");
     const jumlahInput = element.querySelector(".jumlah");
     const totalInput = element.querySelector(".total");
+    const totalFormatted = element.querySelector(".total-formatted");
 
-    const harga = parseInt(produkSelect.selectedOptions[0].dataset.harga);
-    const jumlah = parseInt(jumlahInput.value);
-    totalInput.value = harga * jumlah; // Menghapus format rupiah
+    // Ambil harga dari dataset produk yang dipilih
+    const harga = parseInt(produkSelect.selectedOptions[0]?.dataset.harga || 0);
+    const jumlah = parseInt(jumlahInput.value || 0);
+
+    const total = harga * jumlah;
+    totalInput.value = total; // Simpan nilai numerik
+
+    // Tampilkan format mata uang
+    totalFormatted.textContent =
+      "Rp " + new Intl.NumberFormat("id-ID").format(total);
   }
 
   function addProduct() {
     const produkContainer = document.getElementById("produkContainer");
     const newProduct = document.querySelector(".produk-item").cloneNode(true);
 
-    // Clear the values in the cloned node
+    // Reset nilai input di elemen yang di-clone
     newProduct.querySelector(".produk").value = "";
     newProduct.querySelector(".jumlah").value = "1";
     newProduct.querySelector(".total").value = "";
+    newProduct.querySelector(".total-formatted").textContent = "";
 
     produkContainer.appendChild(newProduct);
 
-    // Add event listeners for the new product item
+    // Tambah event listener pada produk baru
     newProduct.querySelector(".produk").addEventListener("change", function () {
       updateTotal(newProduct);
     });
+
     newProduct.querySelector(".jumlah").addEventListener("input", function () {
       updateTotal(newProduct);
     });
 
-    // Handle the remove button
+    // Handle tombol hapus produk
     newProduct
       .querySelector(".remove-produk")
       .addEventListener("click", function () {
         newProduct.remove();
       });
+
+    // Inisialisasi total untuk produk baru
+    updateTotal(newProduct);
   }
 
-  // Initialize the first product total calculation
+  // Inisialisasi perhitungan total pada produk pertama
   updateTotal(document.querySelector(".produk-item"));
 
-  // Add product button functionality
+  // Fungsi untuk menambah produk baru
   document
     .getElementById("addProductBtn")
     .addEventListener("click", addProduct);
 
-  // Update total on change
+  // Event listener untuk perubahan produk dan jumlah
   document.querySelectorAll(".produk").forEach(function (select) {
     select.addEventListener("change", function () {
       updateTotal(select.closest(".produk-item"));
@@ -66,13 +87,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Handle the remove button on the first product (if needed)
+  // Event listener untuk tombol hapus produk pada produk pertama
   document.querySelectorAll(".remove-produk").forEach(function (button) {
     button.addEventListener("click", function () {
       button.closest(".produk-item").remove();
     });
   });
 });
+
+function validateForm() {
+  let isValid = true;
+  document.querySelectorAll(".produk").forEach(function (select) {
+    if (select.value === "") {
+      isValid = false;
+      alert("Silakan pilih produk!");
+    }
+  });
+
+  document.querySelectorAll(".jumlah").forEach(function (input) {
+    if (input.value === "" || input.value <= 0) {
+      isValid = false;
+      alert("Jumlah produk harus lebih dari 0!");
+    }
+  });
+
+  return isValid;
+}
 
 window.addEventListener("DOMContentLoaded", (event) => {
   // Toggle the side navigation

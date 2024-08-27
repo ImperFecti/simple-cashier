@@ -3,10 +3,10 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <!-- Core Section Start -->
-                <!-- Link to Home page -->
+                <!-- Link to dashboard -->
                 <a class="nav-link" href="/">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
-                    Home Page
+                    Dashboard
                 </a>
 
                 <?php if (in_groups("admin")) : ?>
