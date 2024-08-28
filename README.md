@@ -2,9 +2,11 @@
 
 Jika Anda merasa repositori ini bermanfaat dan ingin menggunakannya, silakan pertimbangkan untuk memberikan bintang. Ini akan menunjukkan dukungan Anda terhadap repositori ini dan membantu orang lain menemukannya.
 
+Open this [`README.md`](https://github.com/ImperFecti/simple-cashier/blob/master/README_EN.md) in english version.
+
 ## Persyaratan Pengembangan Situs Web Ini
 
-Berikut adalah apa yang perlu Anda unduh untuk pertama kali jika Anda ingin mengembangkan situs web ini dengan kode sumber terbaru saya:
+Berikut adalah apa yang perlu Anda unduh untuk pertama kali jika Anda ingin mengembangkan situs web ini dengan source code terbaru saya:
 
 - [Composer 2.7.5](https://getcomposer.org/)
 - [CodeIgniter 4 4.5.4](https://github.com/codeigniter4/CodeIgniter4/releases/tag/v4.5.4)
@@ -124,30 +126,35 @@ public $activeResetter = null;
 ## Preview
 
 - Login
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160637466050682/login.png?ex=66c884b5&is=66c73335&hm=335eace5f872eab9869d4147a8575bf128be8efd557452714d35c31b7d567202&)
+  ![login](public\img\login.png)
 
 - Dashboard
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881071349760/dashboard1.png?ex=66cc504e&is=66cafece&hm=654939f704459d663f210fb3ce0be8986aba2b50515be84a01f81f10468bd3cf&)
+  ![dashboard](public\img\dashboard.png)
 
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881398501419/dashboard2.png?ex=66cc504e&is=66cafece&hm=649c7bb379c1f89d548f52f8bc20c6eb1b1ad6441de824814263944c2a20bd3f&)
+  ![dashboard2](public\img\dashboard2.png)
+
+  ![dashboard3](public\img\dashboard3.png)
 
 - Profile
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160637004939378/profile.png?ex=66c884b5&is=66c73335&hm=4582f46bc5b02c7f19b7693e7f6f960c664bb1aced39dff7fdea1bb7ca09eb9f&)
-
-- Tabel Transaksi
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160635570487329/datatagihan.png?ex=66c884b5&is=66c73335&hm=18af267c65f9f4e05c9dac7a1811c28ccac938b27afcb6e12c91bb10ed663771&)
+  ![profile](public\img\profile.png)
 
 - Tabel Kasir
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160635893452902/datakasir.png?ex=66c884b5&is=66c73335&hm=b3860315dc7981df85ce0c6e78f3275192e6a358927011c80ab0ecaaa790b7d2&)
+  ![tabelkasir](public\img\tabelkasir.png)
 
-- Tabel Produk
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1276160636207894530/dataproduk.png?ex=66c884b5&is=66c73335&hm=f4be76b65c5c9c92b7bc10046b6513f6d362e354efdf4269fcf77ac83cf16537&)
-
-- Tabel Metode Pembayaran
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881998159946/tablepembayaran.png?ex=66cc504e&is=66cafece&hm=927a3adfe97a4d8ce2366fd895c577bd11df7621eb6fabf0e7369a84e4a88fe9&)
+- Tabel Transaksi
+  ![tabeltransaksi](public\img\tabeltransaksi.png)
 
 - Bukti Tagihan
-  ![](https://cdn.discordapp.com/attachments/563035937949483008/1277203881708748860/buktitagihan.png?ex=66cc504e&is=66cafece&hm=5f508d9bf3dba07de395167968e8bde67517b32aad19ce786879705ab89463ec&)
+  ![buktitagihan](public\img\buktitagihan.png)
+
+- Tabel Produk
+  ![tabelproduk](public\img\tabelproduk.png)
+
+- Tabel Kategori
+  ![tabelkategori](public\img\tabelkategori.png)
+
+- Tabel Metode Pembayaran
+  ![](public\img\tabelpembayaran.png)
 
 ## Menemukan masalah saat mengembangkan aplikasi ini?
 
