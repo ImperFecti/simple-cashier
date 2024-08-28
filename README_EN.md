@@ -124,35 +124,35 @@ public $activeResetter = null;
 ## Preview
 
 - Login
-  ![login](public\img\login.png)
+  ![login](public/img/login.png)
 
 - Dashboard
-  ![dashboard](public\img\dashboard.png)
+  ![dashboard](public/img/dashboard.png)
 
-  ![dashboard2](public\img\dashboard2.png)
+  ![dashboard2](public/img/dashboard2.png)
 
-  ![dashboard3](public\img\dashboard3.png)
+  ![dashboard3](public/img/dashboard3.png)
 
 - Profile
-  ![profile](public\img\profile.png)
+  ![profile](public/img/profile.png)
 
 - Tabel Kasir
-  ![tabelkasir](public\img\tabelkasir.png)
+  ![tabelkasir](public/img/tabelkasir.png)
 
 - Tabel Transaksi
-  ![tabeltransaksi](public\img\tabeltransaksi.png)
+  ![tabeltransaksi](public/img/tabeltransaksi.png)
 
 - Bukti Tagihan
-  ![buktitagihan](public\img\buktitagihan.png)
+  ![buktitagihan](public/img/buktitagihan.png)
 
 - Tabel Produk
-  ![tabelproduk](public\img\tabelproduk.png)
+  ![tabelproduk](public/img/tabelproduk.png)
 
 - Tabel Kategori
-  ![tabelkategori](public\img\tabelkategori.png)
+  ![tabelkategori](public/img/tabelkategori.png)
 
 - Tabel Metode Pembayaran
-  ![](public\img\tabelpembayaran.png)
+  ![](public/img/tabelpembayaran.png)
 
 ## Finding issues while developing this application?
 
