@@ -47,6 +47,18 @@ class Product extends BaseController
         return redirect()->to('/tableproduk')->with('message', 'Produk successfully added.');
     }
 
+    public function restokproduk()
+    {
+        $id = $this->request->getPost('produk');
+        $stok = $this->request->getPost('stok');
+
+        // dd($id, $stok);
+
+        $this->ProdukModel->restok($id, $stok);
+
+        return redirect()->to('/tableproduk')->with('message', 'Produk successfully restocked.');
+    }
+
     public function editproduk($id)
     {
         $data = [

@@ -47,5 +47,9 @@
                 <!-- Core section end -->
             </div>
         </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            <?= user()->username; ?>
+        </div>
     </nav>
 </div>

@@ -26,6 +26,13 @@ class ProdukModel extends Model
             ->findAll();
     }
 
+    public function restok($id, $stok)
+    {
+        $this->set('stok', 'stok + ' . $stok, false)
+            ->where('id', $id)
+            ->update();
+    }
+
     public function getTopOrderedProducts($limit = 5)
     {
         return $this->select('produk.nama, SUM(transaksi_detail.jumlah) as total_pesanan')

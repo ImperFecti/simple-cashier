@@ -14,6 +14,7 @@ $routes->get('/profile', 'User::editprofile');
 $routes->post('/updateprofile/(:num)', 'User::updateprofile/$1');
 $routes->get('/ubahpassword', 'User::ubahpassword');
 $routes->post('/updatepassword/(:num)', 'User::updatepassword/$1');
+$routes->get('/absensi', 'Absensi::index');
 
 // tagihan management
 $routes->get('/tabletagihan', 'Tagihan::tabletagihan');
@@ -30,6 +31,7 @@ $routes->post('/editcashier/(:num)', 'Cashier::editcashier/$1', ['filter' => 'ro
 // product management
 $routes->get('/tableproduk', 'Product::tableproduk');
 $routes->post('/tambahproduk', 'Product::tambahproduk', ['filter' => 'role:admin']);
+$routes->post('/restokproduk', 'Product::restokproduk', ['filter' => 'role:admin']);
 $routes->post('/deleteproduk', 'Product::deleteproduk', ['filter' => 'role:admin']);
 $routes->post('/editproduk/(:num)', 'Product::editproduk/$1', ['filter' => 'role:admin']);
 

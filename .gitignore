@@ -84,7 +84,10 @@ phpunit
 #-------------------------
 # Composer
 #-------------------------
-vendor/
+vendor/*
+!vendor/myth/
+vendor/myth/*
+!vendor/myth/auth/
 
 #-------------------------
 # IDE / Development Files
@@ -106,7 +109,7 @@ build/
 nbbuild/
 dist/
 nbdist/
-nbactions.xml
+bactions.xml
 nb-configuration.xml
 .nb-gradle/
 

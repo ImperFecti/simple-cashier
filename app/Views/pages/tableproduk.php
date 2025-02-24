@@ -11,7 +11,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Data Produk</h1>
+                <h1 class="mt-4"><i class="fa-solid fa-box"></i> Data Produk</h1>
                 <?php if (session()->getFlashdata('message')) : ?>
                     <div class="alert alert-success">
                         <?= session()->getFlashdata('message') ?>
@@ -31,8 +31,11 @@
                             </div>
                             <?php if (in_groups("admin")): ?>
                                 <div>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#restockProductModal">
+                                        <i class="fa-solid fa-boxes-stacked fa-fade"></i> Restok Produk
+                                    </button>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                                        <i class="fa-solid fa-person-circle-plus fa-fade"></i> Tambah Produk
+                                        <i class="fa-solid fa-box fa-fade"></i> Tambah Produk
                                     </button>
                                 </div>
                             <?php endif; ?>
@@ -167,10 +170,10 @@
                             <select class="form-select" id="id_kategori" name="id_kategori" required>
                                 <option value="" disabled selected>Pilih Kategori Produk</option>
                                 <?php foreach ($kategori as $k): ?>
-                                    <option value="<?= $k['id']; ?>" <?= ($p['id_kategori'] == $k['id']) ? 'selected' : ''; ?>>
+                                    <option value="<?= $k['id']; ?>" <?= ($p['id_kategori'] == $k['id']) ?>
                                         <?= esc($k['nama']); ?>
-                                    </option>
-                                <?php endforeach; ?>
+                                        </option>
+                                    <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -189,6 +192,44 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Tambahkan Produk</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<!-- Restock Product Modal -->
+<?php if (in_groups("admin")): ?>
+    <div class="modal fade" id="restockProductModal" tabindex="-1" aria-labelledby="restockProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="<?= site_url('/restokproduk') ?>" method="post">
+                    <?= csrf_field() ?>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="restockProductModalLabel">Restock Produk</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="produk" class="form-label">Pilih Produk</label>
+                            <select class="form-select produk" name="produk" required>
+                                <option value="" selected disabled>Pilih Produk</option>
+                                <?php foreach ($produk as $p) : ?>
+                                    <option value="<?= $p['id']; ?>" data-harga="<?= $p['harga']; ?>">
+                                        <?= $p['nama']; ?> - Rp <?= number_format($p['harga'], 0, ',', '.'); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="stok" class="form-label">Stok</label>
+                            <input type="number" class="form-control stok" name="stok" value="1" min="1" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Restok Produk</button>
                     </div>
                 </form>
             </div>
