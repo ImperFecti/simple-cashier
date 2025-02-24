@@ -2,6 +2,8 @@
 
 Jika Anda merasa repositori ini bermanfaat dan ingin menggunakannya, silakan pertimbangkan untuk memberikan bintang. Ini akan menunjukkan dukungan Anda terhadap repositori ini dan membantu orang lain menemukannya.
 
+Open this [`README.md`](https://github.com/ImperFecti/simple-cashier/blob/master/README_EN.md) in english version.
+
 ## Persyaratan Pengembangan Situs Web Ini
 
 Berikut adalah apa yang perlu Anda unduh untuk pertama kali jika Anda ingin mengembangkan situs web ini dengan source code terbaru saya:
@@ -124,6 +126,7 @@ public $activeResetter = null;
 ## Preview
 
 - Login
+<<<<<<< HEAD
   ![]()
 
 - Dashboard
@@ -148,6 +151,37 @@ public $activeResetter = null;
 
 - Bukti Tagihan
   ![]()
+=======
+  ![login](public/img/login.png)
+
+- Dashboard
+  ![dashboard](public/img/dashboard.png)
+
+  ![dashboard2](public/img/dashboard2.png)
+
+  ![dashboard3](public/img/dashboard3.png)
+
+- Profile
+  ![profile](public/img/profile.png)
+
+- Tabel Kasir
+  ![tabelkasir](public/img/tabelkasir.png)
+
+- Tabel Transaksi
+  ![tabeltransaksi](public/img/tabeltransaksi.png)
+
+- Bukti Tagihan
+  ![buktitagihan](public/img/buktitagihan.png)
+
+- Tabel Produk
+  ![tabelproduk](public/img/tabelproduk.png)
+
+- Tabel Kategori
+  ![tabelkategori](public/img/tabelkategori.png)
+
+- Tabel Metode Pembayaran
+  ![](public/img/tabelpembayaran.png)
+>>>>>>> 329afde7a9417d2f8926d5257a812a8f9778a664
 
 ## Menemukan masalah saat mengembangkan aplikasi ini?
 
